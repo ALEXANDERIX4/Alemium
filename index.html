@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Custom Browser</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      display: flex; 
+      flex-direction: column; 
+      height: 100vh; 
+      background: #111216; 
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      overflow: hidden;
+    }
+    
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 10px;
+      background: #1e2029;
+      border-bottom: 1px solid #2d303e;
+      flex-wrap: nowrap;
+    }
+    button {
+      padding: 6px 10px;
+      background: #2b2e3b;
+      color: #e2e8f0;
+      border: 1px solid #3d4255;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+    button:hover { background: #3a3e50; }
+    
+    .url-container {
+      flex: 1;
+      display: flex;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 7px 12px;
+      background: #111216;
+      border: 1px solid #3d4255;
+      color: #fff;
+      border-radius: 6px;
+      outline: none;
+      font-size: 0.9rem;
+    }
+    input[type="text"]:focus { border-color: #fb542b; }
+
+    .zoom-group {
+      display: flex;
+      gap: 4px;
+    }
+
+    webview {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      justify-content: center;
+      align-items: center;
+      z-index: 99;
+    }
+    .modal {
+      background: #1e2029;
+      border: 1px solid #3d4255;
+      border-radius: 12px;
+      padding: 20px;
+      width: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    select {
+      background: #111216;
+      color: #fff;
+      border: 1px solid #3d4255;
+      padding: 8px;
+      border-radius: 6px;
+      outline: none;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav-bar">
+    <button id="btnBack">←</button>
+    <button id="btnForward">→</button>
+    <button id="btnReload">⟳</button>
+    
+    <div class="url-container">
+      <input type="text" id="urlInput" value="https://search.brave.com" />
+    </div>
+
+    <button id="btnGo">Go</button>
+
+    <div class="zoom-group">
+      <button id="btnZoomOut">-</button>
+      <button id="btnZoomReset">100%</button>
+      <button id="btnZoomIn">+</button>
+    </div>
+
+    <button id="btnSettings">⚙</button>
+  </div>
+
+  <webview id="wv" src="https://search.brave.com"></webview>
+
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal">
+      <h3>Settings</h3>
+      <div>
+        <label style="font-size: 0.85rem; color:#94a3b8; display:block; margin-bottom:6px;">Default Search Engine:</label>
+        <select id="engineSelect">
+          <option value="brave">Brave Search</option>
+          <option value="google">Google</option>
+        </select>
+      </div>
+      <button id="btnCloseSettings" style="background:#fb542b; border:none; color:white; padding:10px; width:100%;">Save</button>
+    </div>
+  </div>
+
+  <script>
+    const wv = document.getElementById('wv');
+    const urlInput = document.getElementById('urlInput');
+    const btnGo = document.getElementById('btnGo');
+    const btnBack = document.getElementById('btnBack');
+    const btnForward = document.getElementById('btnForward');
+    const btnReload = document.getElementById('btnReload');
+    
+    const btnZoomIn = document.getElementById('btnZoomIn');
+    const btnZoomOut = document.getElementById('btnZoomOut');
+    const btnZoomReset = document.getElementById('btnZoomReset');
+
+    const btnSettings = document.getElementById('btnSettings');
+    const settingsModal = document.getElementById('settingsModal');
+    const btnCloseSettings = document.getElementById('btnCloseSettings');
+    const engineSelect = document.getElementById('engineSelect');
+
+    let currentEngine = localStorage.getItem('searchEngine') || 'brave';
+    engineSelect.value = currentEngine;
+    let zoomLevel = 0;
+
+    const engines = {
+      brave: { query: 'https://search.brave.com/search?q=' },
+      google: { query: 'https://www.google.com/search?q=' }
+    };
+
+    function navigate() {
+      let input = urlInput.value.trim();
+      if (!input) return;
+
+      const isUrl = input.includes('.') && !input.includes(' ') && !input.startsWith('http');
+      
+      if (input.startsWith('http://') || input.startsWith('https://')) {
+        wv.loadURL(input);
+      } else if (isUrl) {
+        wv.loadURL('https://' + input);
+      } else {
+        wv.loadURL(engines[currentEngine].query + encodeURIComponent(input));
+      }
+    }
+
+    btnGo.onclick = navigate;
+    urlInput.onkeydown = (e) => { if (e.key === 'Enter') navigate(); };
+    btnBack.onclick = () => { if (wv.canGoBack()) wv.goBack(); };
+    btnForward.onclick = () => { if (wv.canGoForward()) wv.goForward(); };
+    btnReload.onclick = () => wv.reload();
+
+    btnZoomIn.onclick = () => { zoomLevel += 0.5; wv.setZoomLevel(zoomLevel); };
+    btnZoomOut.onclick = () => { zoomLevel -= 0.5; wv.setZoomLevel(zoomLevel); };
+    btnZoomReset.onclick = () => { zoomLevel = 0; wv.setZoomLevel(0); };
+
+    wv.addEventListener('did-navigate', (e) => { urlInput.value = e.url; });
+    wv.addEventListener('did-navigate-in-page', (e) => { urlInput.value = e.url; });
+
+    btnSettings.onclick = () => { settingsModal.style.display = 'flex'; };
+    btnCloseSettings.onclick = () => {
+      currentEngine = engineSelect.value;
+      localStorage.setItem('searchEngine', currentEngine);
+      settingsModal.style.display = 'none';
+    };
+  </script>
+</body>
+</html>
