@@ -266,6 +266,7 @@
 </head>
 <body>
 
+  <!-- Chrome Tab Strip -->
   <div class="chrome-tab-strip">
     <svg class="app-brand-icon" viewBox="0 0 48 48">
       <circle cx="24" cy="24" r="21.5" fill="#1976D2"/>
@@ -280,6 +281,7 @@
     <button class="btn-new-tab" id="btnNewTab" title="New Tab (Ctrl+T)">+</button>
   </div>
 
+  <!-- Navigation Toolbar -->
   <div class="chrome-toolbar">
     <button class="nav-btn" id="btnBack" title="Back">←</button>
     <button class="nav-btn" id="btnForward" title="Forward">→</button>
@@ -295,6 +297,7 @@
     <button class="nav-btn" id="btnSettings" title="Settings">⚙</button>
   </div>
 
+  <!-- WebViews Stack -->
   <div id="viewsContainer"></div>
 
   <!-- Settings Panel -->
@@ -351,7 +354,13 @@
   </div>
 
   <script>
-    const { ipcRenderer } = require('electron');
+    let ipcRenderer = null;
+    try {
+      const electron = require('electron');
+      ipcRenderer = electron.ipcRenderer;
+    } catch (err) {
+      console.warn('Electron IPC unavailable:', err);
+    }
 
     const tabList = document.getElementById('tabList');
     const viewsContainer = document.getElementById('viewsContainer');
@@ -490,7 +499,6 @@
       // Page Load Ad Cleaner & YouTube Skip Engine
       wv.addEventListener('dom-ready', () => {
         if (config.adblock) {
-          // 1. Hide Standard Banner Ads
           wv.insertCSS(`
             .adsbygoogle, [id^="google_ads_"], .ad-banner, .advertisement, div[class*="-ad-"],
             ytd-ad-slot-renderer, ytd-banner-promo-renderer, #masthead-ad {
@@ -500,23 +508,20 @@
             }
           `);
 
-          // 2. High-speed YouTube Ad Skipper & Fast-Forward Engine
           wv.executeJavaScript(`
             if (!window.__adSkipAttached) {
               window.__adSkipAttached = true;
               setInterval(() => {
-                // Click skip button immediately
                 const skipBtn = document.querySelector('.ytp-skip-ad-button, .ytp-ad-skip-button, .ytp-ad-skip-button-modern');
                 if (skipBtn) {
                   skipBtn.click();
                 }
 
-                // If ad overlay or video is actively interrupting
                 const adShowing = document.querySelector('.ad-showing, .ad-interrupting');
                 const video = document.querySelector('video');
                 if (adShowing && video) {
                   video.muted = true;
-                  video.playbackRate = 16.0; // Fast-forward speed
+                  video.playbackRate = 16.0;
                   if (!isNaN(video.duration) && isFinite(video.duration)) {
                     video.currentTime = video.duration - 0.1;
                   }
@@ -614,17 +619,19 @@
       localStorage.setItem('cfg_home', config.home);
       localStorage.setItem('cfg_adblock', config.adblock);
 
-      ipcRenderer.send('set-adblock', config.adblock);
+      if (ipcRenderer) ipcRenderer.send('set-adblock', config.adblock);
       settingsModal.style.display = 'none';
     };
 
     btnClearCache.onclick = () => {
-      ipcRenderer.send('clear-cache');
+      if (ipcRenderer) ipcRenderer.send('clear-cache');
     };
 
-    ipcRenderer.on('cache-cleared', () => {
-      alert('Browsing cookies and storage cache cleared!');
-    });
+    if (ipcRenderer) {
+      ipcRenderer.on('cache-cleared', () => {
+        alert('Browsing cookies and storage cache cleared!');
+      });
+    }
 
     window.addEventListener('keydown', (e) => {
       if (e.ctrlKey && e.key.toLowerCase() === 't') {
