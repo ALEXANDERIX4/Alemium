@@ -11,8 +11,7 @@
     "appId": "com.alex.alenium",
     "productName": "Alenium",
     "win": {
-      "target": "nsis",
-      "icon": "icon.ico"
+      "target": "nsis"
     }
   },
   "devDependencies": {
