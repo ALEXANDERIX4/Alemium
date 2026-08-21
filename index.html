@@ -16,23 +16,21 @@
       user-select: none;
     }
 
-    /* Minimalist Unified Header */
+    /* Minimal Top Navigation Header */
     .header {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 10px 16px;
+      gap: 10px;
+      padding: 8px 14px;
       background: #18181b;
       border-bottom: 1px solid #27272a;
       z-index: 10;
     }
-
     .nav-group {
       display: flex;
       align-items: center;
       gap: 4px;
     }
-
     .btn-icon {
       width: 32px;
       height: 32px;
@@ -45,14 +43,13 @@
       align-items: center;
       justify-content: center;
       font-size: 0.95rem;
-      transition: all 0.15s ease;
+      transition: background 0.15s, color 0.15s;
     }
     .btn-icon:hover {
       background: #27272a;
       color: #fafafa;
     }
 
-    /* Minimal Search Bar */
     .search-box {
       flex: 1;
       max-width: 680px;
@@ -60,16 +57,14 @@
       display: flex;
       align-items: center;
       background: #0f0f11;
-      border-radius: 10px;
+      border-radius: 8px;
       padding: 0 12px;
-      height: 36px;
+      height: 34px;
       border: 1px solid #27272a;
-      transition: all 0.2s ease;
     }
     .search-box:focus-within {
       border-color: #3b82f6;
       background: #09090b;
-      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
     }
     .search-input {
       width: 100%;
@@ -80,12 +75,12 @@
       outline: none;
     }
 
-    /* Sleek Tab Strip */
+    /* Tab Bar */
     .tabs-bar {
       display: flex;
       align-items: center;
       background: #18181b;
-      padding: 0 12px 6px 12px;
+      padding: 0 10px 6px 10px;
       gap: 6px;
       overflow-x: auto;
       border-bottom: 1px solid #27272a;
@@ -94,16 +89,15 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 6px 12px;
-      height: 30px;
+      padding: 5px 12px;
+      height: 28px;
       background: #27272a;
       color: #a1a1aa;
-      border-radius: 7px;
+      border-radius: 6px;
       font-size: 0.78rem;
       cursor: pointer;
       min-width: 120px;
       max-width: 200px;
-      transition: all 0.15s ease;
     }
     .tab.active {
       background: #3f3f46;
@@ -120,7 +114,7 @@
       border: none;
       background: transparent;
       color: #71717a;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       cursor: pointer;
       border-radius: 4px;
       width: 16px;
@@ -135,33 +129,28 @@
     webview { position: absolute; inset: 0; width: 100%; height: 100%; display: none; }
     webview.active { display: flex; }
 
-    /* Floating Modal Sheets */
+    /* Modals */
     .modal-overlay {
       display: none;
       position: fixed;
       inset: 0;
       background: rgba(0, 0, 0, 0.65);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(8px);
       z-index: 1000;
       justify-content: center;
       align-items: center;
     }
     .modal-card {
       background: #18181b;
-      border-radius: 14px;
-      width: 460px;
+      border-radius: 12px;
+      width: 440px;
       border: 1px solid #27272a;
-      padding: 22px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      gap: 14px;
     }
-    .modal-card h3 {
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: #fafafa;
-    }
+    .modal-card h3 { font-size: 1rem; color: #fafafa; }
     .setting-item {
       display: flex;
       justify-content: space-between;
@@ -169,12 +158,12 @@
       font-size: 0.85rem;
     }
     .setting-desc { color: #71717a; font-size: 0.75rem; margin-top: 2px; }
-    select, input[type="text"], textarea {
+    select, input[type="text"] {
       background: #09090b;
       border: 1px solid #27272a;
       color: #fafafa;
-      padding: 7px 10px;
-      border-radius: 8px;
+      padding: 6px 10px;
+      border-radius: 6px;
       outline: none;
       font-size: 0.85rem;
     }
@@ -182,45 +171,24 @@
       background: #2563eb;
       border: none;
       color: #fff;
-      padding: 7px 14px;
-      border-radius: 8px;
+      padding: 6px 14px;
+      border-radius: 6px;
       font-weight: 500;
       cursor: pointer;
-      transition: background 0.15s;
     }
-    .btn-primary:hover { background: #1d4ed8; }
     .btn-danger {
       background: #dc2626;
       border: none;
       color: #fff;
       padding: 6px 12px;
-      border-radius: 8px;
+      border-radius: 6px;
       cursor: pointer;
       font-size: 0.8rem;
-    }
-    .btn-danger:hover { background: #b91c1c; }
-
-    .ext-list {
-      max-height: 200px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .ext-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 10px;
-      background: #09090b;
-      border-radius: 8px;
-      font-size: 0.85rem;
     }
   </style>
 </head>
 <body>
 
-  <!-- Minimal Top Header -->
   <div class="header">
     <div class="nav-group">
       <button class="btn-icon" id="btnBack">←</button>
@@ -234,48 +202,25 @@
 
     <div class="nav-group">
       <button class="btn-icon" id="btnNewTab" title="New Tab">+</button>
-      <button class="btn-icon" id="btnExtensions" title="Extensions">🧩</button>
       <button class="btn-icon" id="btnSettings" title="Settings">⚙</button>
     </div>
   </div>
 
-  <!-- Tabs Bar -->
   <div class="tabs-bar" id="tabList"></div>
-
-  <!-- Content -->
   <div id="viewsContainer"></div>
-
-  <!-- Extensions Modal -->
-  <div class="modal-overlay" id="extModal">
-    <div class="modal-card">
-      <h3>Extensions Manager</h3>
-      <div class="ext-list" id="extListContainer"></div>
-
-      <div style="border-top: 1px solid #27272a; padding-top: 12px;">
-        <div style="font-size: 0.8rem; font-weight: 500; margin-bottom: 6px;">Add Custom Script Extension</div>
-        <input type="text" id="extNameInput" placeholder="Extension Name" style="width: 100%; margin-bottom: 6px;" />
-        <textarea id="extCodeInput" placeholder="document.body.style.filter = 'invert(1)';" style="width: 100%; height: 50px; font-family: monospace; font-size: 0.75rem;"></textarea>
-      </div>
-
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <button class="btn-primary" id="btnAddExt">+ Add Script</button>
-        <button class="btn-primary" id="btnCloseExt">Done</button>
-      </div>
-    </div>
-  </div>
 
   <!-- Settings Modal -->
   <div class="modal-overlay" id="settingsModal">
     <div class="modal-card">
-      <h3>Settings</h3>
+      <h3>Browser Preferences</h3>
 
       <div class="setting-item">
         <div>
           <div>Search Engine</div>
-          <div class="setting-desc">Default provider for omnibox queries</div>
+          <div class="setting-desc">Default provider for search queries</div>
         </div>
         <select id="cfgEngine">
-          <option value="brave">Brave Search</option>
+          <option value="brave">Brave</option>
           <option value="google">Google</option>
           <option value="duckduckgo">DuckDuckGo</option>
         </select>
@@ -292,21 +237,21 @@
       <div class="setting-item">
         <div>
           <div>AdShield & YouTube Auto-Skip</div>
-          <div class="setting-desc">Block video ads & trackers</div>
+          <div class="setting-desc">Block video ads and trackers</div>
         </div>
         <input type="checkbox" id="cfgAdblock" style="transform:scale(1.2); cursor:pointer;" />
       </div>
 
       <div class="setting-item">
         <div>
-          <div>Browsing Cache & Storage</div>
-          <div class="setting-desc">Wipe all disk cache and site cookies</div>
+          <div>Clear Local Storage</div>
+          <div class="setting-desc">Wipe all cached browser storage</div>
         </div>
-        <button class="btn-danger" id="btnClearStorage">Purge Cache</button>
+        <button class="btn-danger" id="btnClearStorage">Clear Data</button>
       </div>
 
       <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:6px;">
-        <button class="btn-primary" id="btnSaveSettings">Done</button>
+        <button class="btn-primary" id="btnSaveSettings">Save</button>
       </div>
     </div>
   </div>
@@ -330,14 +275,6 @@
       const cfgHome = document.getElementById('cfgHome');
       const cfgAdblock = document.getElementById('cfgAdblock');
 
-      const btnExtensions = document.getElementById('btnExtensions');
-      const extModal = document.getElementById('extModal');
-      const btnCloseExt = document.getElementById('btnCloseExt');
-      const extListContainer = document.getElementById('extListContainer');
-      const btnAddExt = document.getElementById('btnAddExt');
-      const extNameInput = document.getElementById('extNameInput');
-      const extCodeInput = document.getElementById('extCodeInput');
-
       let tabs = [];
       let activeTabId = null;
 
@@ -347,51 +284,11 @@
         adblock: localStorage.getItem('cfg_adblock') !== 'false'
       };
 
-      let defaultExtensions = [
-        { id: 'ext_dark', name: 'Universal Dark Mode', code: 'document.documentElement.style.filter = "invert(0.9) hue-rotate(180deg)";', enabled: false }
-      ];
-      let extensions = JSON.parse(localStorage.getItem('alenium_extensions')) || defaultExtensions;
-
       const engines = {
         brave: 'https://search.brave.com/search?q=',
         google: 'https://www.google.com/search?q=',
         duckduckgo: 'https://duckduckgo.com/?q='
       };
-
-      function renderExtensions() {
-        extListContainer.innerHTML = '';
-        extensions.forEach((ext, idx) => {
-          const row = document.createElement('div');
-          row.className = 'ext-item';
-          row.innerHTML = `
-            <div>${ext.name}</div>
-            <div style="display:flex; gap:8px; align-items:center;">
-              <input type="checkbox" ${ext.enabled ? 'checked' : ''} data-idx="${idx}" class="ext-toggle" style="transform:scale(1.2); cursor:pointer;">
-              <button class="btn-danger" data-idx="${idx}" style="padding:2px 6px; font-size:0.75rem;">✕</button>
-            </div>
-          `;
-          extListContainer.appendChild(row);
-        });
-
-        document.querySelectorAll('.ext-toggle').forEach(el => {
-          el.onchange = (e) => {
-            const idx = e.target.getAttribute('data-idx');
-            extensions[idx].enabled = e.target.checked;
-            localStorage.setItem('alenium_extensions', JSON.stringify(extensions));
-            const wv = getActiveWV();
-            if (wv) wv.reload();
-          };
-        });
-
-        extListContainer.querySelectorAll('.btn-danger').forEach(el => {
-          el.onclick = (e) => {
-            const idx = e.target.getAttribute('data-idx');
-            extensions.splice(idx, 1);
-            localStorage.setItem('alenium_extensions', JSON.stringify(extensions));
-            renderExtensions();
-          };
-        });
-      }
 
       function createTab(targetUrl = config.home) {
         const id = 'tab_' + Date.now();
@@ -456,10 +353,6 @@
               }
             `);
           }
-
-          extensions.forEach(ext => {
-            if (ext.enabled) wv.executeJavaScript(ext.code);
-          });
         });
 
         selectTab(id);
@@ -528,33 +421,9 @@
         settingsModal.style.display = 'none';
       };
 
-      btnClearStorage.onclick = async () => {
-        if (window.aleniumAPI && window.aleniumAPI.purgeCache) {
-          await window.aleniumAPI.purgeCache();
-        }
+      btnClearStorage.onclick = () => {
         localStorage.clear();
-        alert('Cache and browsing storage cleared.');
-      };
-
-      btnExtensions.onclick = () => {
-        renderExtensions();
-        extModal.style.display = 'flex';
-      };
-      btnCloseExt.onclick = () => { extModal.style.display = 'none'; };
-
-      btnAddExt.onclick = () => {
-        const name = extNameInput.value.trim();
-        const code = extCodeInput.value.trim();
-        if (!name || !code) return;
-
-        extensions.push({ id: 'ext_' + Date.now(), name, code, enabled: true });
-        localStorage.setItem('alenium_extensions', JSON.stringify(extensions));
-        extNameInput.value = '';
-        extCodeInput.value = '';
-        renderExtensions();
-
-        const wv = getActiveWV();
-        if (wv) wv.reload();
+        alert('Local storage data cleared.');
       };
 
       window.addEventListener('keydown', (e) => {
