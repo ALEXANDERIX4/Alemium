@@ -8,7 +8,6 @@ function createWindow() {
     height: 840,
     minWidth: 500,
     minHeight: 400,
-    icon: path.join(__dirname, 'icon.ico'),
     titleBarStyle: 'hidden',
     titleBarOverlay: {
       color: '#1f1f1f',
@@ -18,17 +17,18 @@ function createWindow() {
     webPreferences: {
       webviewTag: true,
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
+      sandbox: false
     }
   });
 
   const ses = session.defaultSession;
 
-  // Modern Chrome User-Agent for seamless Google authentication
+  // Modern Chrome User-Agent for Google Account compatibility
   const chromeUA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36';
   ses.setUserAgent(chromeUA);
 
-  // Network AdShield Filters
+  // Network AdShield
   const adFilters = [
     "*://*.doubleclick.net/*",
     "*://*.googlesyndication.com/*",
@@ -51,7 +51,6 @@ function createWindow() {
     callback({ cancel: adBlockActive });
   });
 
-  // Settings IPC bridges
   ipcMain.on('set-adblock', (event, status) => {
     adBlockActive = status;
   });
