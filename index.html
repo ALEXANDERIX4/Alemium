@@ -9,280 +9,307 @@
       display: flex;
       flex-direction: column;
       height: 100vh;
-      background: #1f1f1f;
-      color: #e3e3e3;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #1e1e1e;
+      color: #e5e5e7;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
       overflow: hidden;
       user-select: none;
     }
 
-    /* Tab Bar */
-    .tab-strip {
-      display: flex;
-      align-items: flex-end;
-      height: 40px;
-      background: #181818;
-      padding: 0 8px;
-      gap: 4px;
-    }
-    .app-icon {
-      width: 20px;
-      height: 20px;
-      margin-bottom: 8px;
-      margin-right: 6px;
-    }
-    .tab-list {
-      display: flex;
-      gap: 4px;
-      align-items: flex-end;
-      overflow-x: auto;
-      height: 100%;
-    }
-    .tab {
+    /* Safari Toolbar */
+    .safari-navbar {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 0 12px;
-      height: 32px;
-      background: #282828;
-      color: #aaa;
-      border-radius: 8px 8px 0 0;
-      font-size: 0.8rem;
-      cursor: pointer;
-      min-width: 140px;
-      max-width: 200px;
+      gap: 10px;
+      padding: 8px 14px;
+      background: #252526;
+      border-bottom: 1px solid #333336;
+      z-index: 10;
     }
-    .tab.active {
-      background: #333333;
-      color: #fff;
-    }
-    .tab-title {
-      flex: 1;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .tab-close {
-      border: none;
-      background: transparent;
-      color: #aaa;
-      font-size: 0.9rem;
-      cursor: pointer;
-      border-radius: 50%;
-      width: 16px;
-      height: 16px;
+    .traffic-lights {
       display: flex;
-      align-items: center;
-      justify-content: center;
+      gap: 6px;
+      margin-right: 4px;
     }
-    .tab-close:hover { background: #555; color: #fff; }
-    
-    .btn-new-tab {
-      background: transparent;
-      border: none;
-      color: #aaa;
-      font-size: 1.2rem;
+    .light { width: 11px; height: 11px; border-radius: 50%; }
+    .light-red { background: #ff5f56; }
+    .light-yellow { background: #ffbd2e; }
+    .light-green { background: #27c93f; }
+
+    .nav-controls { display: flex; gap: 4px; }
+    .safari-btn {
       width: 28px;
       height: 28px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 2px;
-    }
-    .btn-new-tab:hover { background: #333; color: #fff; }
-
-    /* Navigation Bar */
-    .toolbar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 10px;
-      background: #282828;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    .nav-btn {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
+      border-radius: 6px;
       border: none;
       background: transparent;
-      color: #c7c7c7;
+      color: #a1a1a6;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 0.95rem;
+      transition: background 0.15s, color 0.15s;
     }
-    .nav-btn:hover { background: #3c4043; color: #fff; }
+    .safari-btn:hover { background: #3a3a3c; color: #fff; }
 
-    /* Omnibox / Search */
-    .omnibox-wrapper {
+    .safari-search-wrapper {
       flex: 1;
+      max-width: 620px;
+      margin: 0 auto;
       display: flex;
       align-items: center;
-      background: #181818;
-      border-radius: 20px;
-      padding: 0 14px;
-      height: 34px;
-      border: 1px solid #3c4043;
+      background: #19191a;
+      border-radius: 8px;
+      padding: 0 10px;
+      height: 30px;
+      border: 1px solid #38383a;
+      gap: 8px;
     }
-    .omnibox-wrapper:focus-within {
-      border-color: #8ab4f8;
-      background: #111;
+    .safari-search-wrapper:focus-within {
+      border-color: #007aff;
+      background: #141415;
     }
-    .omnibox-input {
+    .search-icon { font-size: 0.75rem; color: #6e6e73; }
+    .safari-input {
       width: 100%;
       background: transparent;
       border: none;
       color: #fff;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
+      text-align: center;
       outline: none;
     }
+    .safari-input:focus { text-align: left; }
 
-    /* Views Area */
-    #viewsContainer {
-      flex: 1;
-      position: relative;
-      background: #000;
-    }
-    webview {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: none;
-    }
-    webview.active {
+    /* Safari Tab Strip */
+    .safari-tabstrip {
       display: flex;
+      background: #1c1c1e;
+      border-bottom: 1px solid #2c2c2e;
+      padding: 4px 10px 0 10px;
+      gap: 4px;
+      overflow-x: auto;
     }
+    .safari-tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 14px;
+      height: 28px;
+      background: #252526;
+      color: #8e8e93;
+      border-radius: 6px 6px 0 0;
+      font-size: 0.75rem;
+      cursor: pointer;
+      min-width: 130px;
+      max-width: 200px;
+    }
+    .safari-tab.active {
+      background: #2c2c2e;
+      color: #fff;
+    }
+    .safari-tab-title {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .safari-tab-close {
+      border: none;
+      background: transparent;
+      color: #8e8e93;
+      font-size: 0.85rem;
+      cursor: pointer;
+      border-radius: 50%;
+      width: 14px;
+      height: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .safari-tab-close:hover { color: #fff; background: #3a3a3c; }
 
-    /* Modals */
-    .modal-backdrop {
+    #viewsContainer { flex: 1; position: relative; background: #121212; }
+    webview { position: absolute; inset: 0; width: 100%; height: 100%; display: none; }
+    webview.active { display: flex; }
+
+    /* Modal Sheets */
+    .safari-sheet {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.65);
-      z-index: 1000;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(8px);
+      z-index: 999;
       justify-content: center;
       align-items: center;
     }
-    .panel {
-      background: #282828;
+    .sheet-card {
+      background: #252526;
       border-radius: 12px;
-      width: 440px;
-      border: 1px solid #3c4043;
-      padding: 20px;
+      width: 500px;
+      border: 1px solid #38383a;
+      padding: 22px;
       display: flex;
       flex-direction: column;
       gap: 14px;
     }
-    .settings-row {
+    .sheet-card h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      border-bottom: 1px solid #333336;
+      padding-bottom: 10px;
+    }
+    .setting-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
-    select, input[type="text"] {
-      background: #181818;
-      border: 1px solid #3c4043;
+    .setting-desc { color: #8e8e93; font-size: 0.75rem; margin-top: 2px; }
+    select, input[type="text"], textarea {
+      background: #19191a;
+      border: 1px solid #3a3a3c;
       color: #fff;
       padding: 6px 10px;
       border-radius: 6px;
       outline: none;
+      font-size: 0.85rem;
     }
-    .btn-action {
-      background: #8ab4f8;
+    .btn-safari-primary {
+      background: #007aff;
       border: none;
-      color: #1f1f1f;
-      padding: 8px 14px;
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .btn-safari-danger {
+      background: #ff453a;
+      border: none;
+      color: #fff;
+      padding: 6px 12px;
       border-radius: 6px;
       cursor: pointer;
-      font-weight: bold;
+      font-size: 0.8rem;
     }
-    .history-list {
-      max-height: 320px;
+
+    .ext-list {
+      max-height: 220px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: 6px;
     }
-    .history-item {
+    .ext-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       padding: 8px 10px;
-      background: #181818;
+      background: #1c1c1e;
       border-radius: 6px;
-      cursor: pointer;
+      font-size: 0.85rem;
     }
-    .history-item:hover { background: #111; }
-    .history-title { font-size: 0.85rem; font-weight: bold; }
-    .history-url { font-size: 0.75rem; color: #8ab4f8; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   </style>
 </head>
 <body>
 
-  <!-- Tabs Header -->
-  <div class="tab-strip">
-    <svg class="app-icon" viewBox="0 0 48 48">
-      <circle cx="24" cy="24" r="21.5" fill="#1976D2"/>
-      <circle cx="24" cy="24" r="7.5" fill="#FFFFFF"/>
-      <circle cx="24" cy="24" r="6" fill="#1976D2"/>
-    </svg>
-    <div class="tab-list" id="tabList"></div>
-    <button class="btn-new-tab" id="btnNewTab">+</button>
-  </div>
-
-  <!-- Browser Controls -->
-  <div class="toolbar">
-    <button class="nav-btn" id="btnBack">←</button>
-    <button class="nav-btn" id="btnForward">→</button>
-    <button class="nav-btn" id="btnReload">⟳</button>
-    <button class="nav-btn" id="btnHome">🏠</button>
-
-    <div class="omnibox-wrapper">
-      <input type="text" class="omnibox-input" id="omnibox" placeholder="Search or type URL" />
+  <div class="safari-navbar">
+    <div class="traffic-lights">
+      <div class="light light-red"></div>
+      <div class="light light-yellow"></div>
+      <div class="light light-green"></div>
     </div>
 
-    <button class="nav-btn" id="btnHistory">🕒</button>
-    <button class="nav-btn" id="btnSettings">⚙</button>
+    <div class="nav-controls">
+      <button class="safari-btn" id="btnBack">‹</button>
+      <button class="safari-btn" id="btnForward">›</button>
+      <button class="safari-btn" id="btnReload">⟳</button>
+      <button class="safari-btn" id="btnHome">🏠</button>
+    </div>
+
+    <div class="safari-search-wrapper">
+      <span class="search-icon">🔒</span>
+      <input type="text" class="safari-input" id="omnibox" placeholder="Search or enter website name" />
+    </div>
+
+    <div class="nav-controls">
+      <button class="safari-btn" id="btnExtensions" title="Extensions">🧩</button>
+      <button class="safari-btn" id="btnNewTab" title="New Tab">+</button>
+      <button class="safari-btn" id="btnSettings" title="Settings">⚙</button>
+    </div>
   </div>
 
-  <!-- Web Content Area -->
+  <div class="safari-tabstrip" id="tabList"></div>
   <div id="viewsContainer"></div>
 
-  <!-- Settings Modal -->
-  <div class="modal-backdrop" id="settingsModal">
-    <div class="panel">
-      <h3>Settings</h3>
-      <div class="settings-row">
-        <label>Search Provider:</label>
-        <select id="cfgEngine">
-          <option value="brave">Brave</option>
-          <option value="google">Google</option>
-          <option value="duckduckgo">DuckDuckGo</option>
-        </select>
+  <!-- Extensions Modal -->
+  <div class="safari-sheet" id="extModal">
+    <div class="sheet-card">
+      <h3>Installed Extensions</h3>
+
+      <div class="ext-list" id="extListContainer">
+        <!-- Dynamic Extension Items -->
       </div>
-      <div class="settings-row">
-        <label>Home URL:</label>
-        <input type="text" id="cfgHome" style="width:200px;" />
+
+      <div style="border-top: 1px solid #333; padding-top: 10px;">
+        <div style="font-size: 0.85rem; margin-bottom: 6px; font-weight: 600;">Install Custom JavaScript Extension</div>
+        <input type="text" id="extNameInput" placeholder="Extension Name (e.g. Force Dark Mode)" style="width: 100%; margin-bottom: 6px;" />
+        <textarea id="extCodeInput" placeholder="document.body.style.filter = 'invert(1) hue-rotate(180deg)';" style="width: 100%; height: 60px; font-family: monospace; font-size: 0.75rem;"></textarea>
       </div>
-      <div style="display:flex; justify-content:flex-end;">
-        <button class="btn-action" id="btnSaveSettings">Save</button>
+
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <button class="btn-safari-primary" id="btnAddExt">+ Add Script</button>
+        <button class="btn-safari-primary" id="btnCloseExt">Done</button>
       </div>
     </div>
   </div>
 
-  <!-- History Modal -->
-  <div class="modal-backdrop" id="historyModal">
-    <div class="panel">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <h3>History</h3>
-        <button class="btn-action" id="btnClearHistory" style="background:#ea4335; color:#fff; font-size:0.75rem; padding:4px 8px;">Clear</button>
+  <!-- Settings Modal -->
+  <div class="safari-sheet" id="settingsModal">
+    <div class="sheet-card">
+      <h3>Safari Preferences</h3>
+
+      <div class="setting-item">
+        <div>
+          <div>Search Engine</div>
+          <div class="setting-desc">Default provider for search queries</div>
+        </div>
+        <select id="cfgEngine">
+          <option value="brave">Brave</option>
+          <option value="duckduckgo">DuckDuckGo</option>
+          <option value="google">Google</option>
+        </select>
       </div>
-      <div class="history-list" id="historyListContainer"></div>
-      <div style="display:flex; justify-content:flex-end;">
-        <button class="btn-action" id="btnCloseHistory">Close</button>
+
+      <div class="setting-item">
+        <div>
+          <div>Homepage</div>
+          <div class="setting-desc">Default start URL</div>
+        </div>
+        <input type="text" id="cfgHome" style="width:190px;" />
+      </div>
+
+      <div class="setting-item">
+        <div>
+          <div>Anti-Tracker & YouTube Skip</div>
+          <div class="setting-desc">Block ads & telemetry automatically</div>
+        </div>
+        <input type="checkbox" id="cfgAdblock" style="transform:scale(1.2); cursor:pointer;" />
+      </div>
+
+      <div class="setting-item">
+        <div>
+          <div>Purge Cache & Cookies</div>
+          <div class="setting-desc">Deep wipe browsing memory</div>
+        </div>
+        <button class="btn-safari-danger" id="btnClearStorage">Purge Cache</button>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:8px;">
+        <button class="btn-safari-primary" id="btnSaveSettings">Done</button>
       </div>
     </div>
   </div>
@@ -292,61 +319,89 @@
       const tabList = document.getElementById('tabList');
       const viewsContainer = document.getElementById('viewsContainer');
       const omnibox = document.getElementById('omnibox');
-      
+
       const btnNewTab = document.getElementById('btnNewTab');
       const btnBack = document.getElementById('btnBack');
       const btnForward = document.getElementById('btnForward');
       const btnReload = document.getElementById('btnReload');
       const btnHome = document.getElementById('btnHome');
-      
-      const btnHistory = document.getElementById('btnHistory');
-      const historyModal = document.getElementById('historyModal');
-      const historyListContainer = document.getElementById('historyListContainer');
-      const btnCloseHistory = document.getElementById('btnCloseHistory');
-      const btnClearHistory = document.getElementById('btnClearHistory');
 
       const btnSettings = document.getElementById('btnSettings');
       const settingsModal = document.getElementById('settingsModal');
       const btnSaveSettings = document.getElementById('btnSaveSettings');
+      const btnClearStorage = document.getElementById('btnClearStorage');
       const cfgEngine = document.getElementById('cfgEngine');
       const cfgHome = document.getElementById('cfgHome');
+      const cfgAdblock = document.getElementById('cfgAdblock');
+
+      // Extensions Controls
+      const btnExtensions = document.getElementById('btnExtensions');
+      const extModal = document.getElementById('extModal');
+      const btnCloseExt = document.getElementById('btnCloseExt');
+      const extListContainer = document.getElementById('extListContainer');
+      const btnAddExt = document.getElementById('btnAddExt');
+      const extNameInput = document.getElementById('extNameInput');
+      const extCodeInput = document.getElementById('extCodeInput');
 
       let tabs = [];
       let activeTabId = null;
 
       let config = {
         engine: localStorage.getItem('cfg_engine') || 'brave',
-        home: localStorage.getItem('cfg_home') || 'https://search.brave.com'
+        home: localStorage.getItem('cfg_home') || 'https://search.brave.com',
+        adblock: localStorage.getItem('cfg_adblock') !== 'false'
       };
+
+      // Built-in starter extensions
+      let defaultExtensions = [
+        { id: 'ext_dark', name: 'Universal Dark Mode', code: 'document.documentElement.style.filter = "invert(0.9) hue-rotate(180deg)";', enabled: false },
+        { id: 'ext_pip', name: 'Force Video Picture-in-Picture', code: 'const v = document.querySelector("video"); if(v) v.requestPictureInPicture();', enabled: false }
+      ];
+
+      let extensions = JSON.parse(localStorage.getItem('alenium_extensions')) || defaultExtensions;
 
       const engines = {
         brave: 'https://search.brave.com/search?q=',
-        google: 'https://www.google.com/search?q=',
-        duckduckgo: 'https://duckduckgo.com/?q='
+        duckduckgo: 'https://duckduckgo.com/?q=',
+        google: 'https://www.google.com/search?q='
       };
 
-      function addHistory(title, url) {
-        if (!url || url.startsWith('about:')) return;
-        let history = JSON.parse(localStorage.getItem('browser_history') || '[]');
-        if (history.length > 0 && history[0].url === url) return;
-        history.unshift({ title: title || url, url });
-        if (history.length > 50) history.pop();
-        localStorage.setItem('browser_history', JSON.stringify(history));
-      }
-
-      function renderHistory() {
-        const history = JSON.parse(localStorage.getItem('browser_history') || '[]');
-        historyListContainer.innerHTML = '';
-        if (history.length === 0) {
-          historyListContainer.innerHTML = '<div style="color:#777; padding:10px; text-align:center;">No history</div>';
-          return;
-        }
-        history.forEach(item => {
+      function renderExtensions() {
+        extListContainer.innerHTML = '';
+        extensions.forEach((ext, idx) => {
           const row = document.createElement('div');
-          row.className = 'history-item';
-          row.innerHTML = `<div class="history-title">${item.title}</div><div class="history-url">${item.url}</div>`;
-          row.onclick = () => { createTab(item.url); historyModal.style.display = 'none'; };
-          historyListContainer.appendChild(row);
+          row.className = 'ext-item';
+          row.innerHTML = `
+            <div>
+              <div style="font-weight:600;">${ext.name}</div>
+            </div>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <input type="checkbox" ${ext.enabled ? 'checked' : ''} data-idx="${idx}" class="ext-toggle" style="transform:scale(1.2); cursor:pointer;">
+              <button class="btn-safari-danger" data-idx="${idx}" style="padding:2px 6px; font-size:0.75rem;">✕</button>
+            </div>
+          `;
+          extListContainer.appendChild(row);
+        });
+
+        // Toggle Extension
+        document.querySelectorAll('.ext-toggle').forEach(el => {
+          el.onchange = (e) => {
+            const idx = e.target.getAttribute('data-idx');
+            extensions[idx].enabled = e.target.checked;
+            localStorage.setItem('alenium_extensions', JSON.stringify(extensions));
+            const wv = getActiveWV();
+            if (wv) wv.reload();
+          };
+        });
+
+        // Delete Extension
+        extListContainer.querySelectorAll('.btn-safari-danger').forEach(el => {
+          el.onclick = (e) => {
+            const idx = e.target.getAttribute('data-idx');
+            extensions.splice(idx, 1);
+            localStorage.setItem('alenium_extensions', JSON.stringify(extensions));
+            renderExtensions();
+          };
         });
       }
 
@@ -354,8 +409,8 @@
         const id = 'tab_' + Date.now();
 
         const tabEl = document.createElement('div');
-        tabEl.className = 'tab';
-        tabEl.innerHTML = `<span class="tab-title">New Tab</span><button class="tab-close">&times;</button>`;
+        tabEl.className = 'safari-tab';
+        tabEl.innerHTML = `<span class="safari-tab-title">New Tab</span><button class="safari-tab-close">&times;</button>`;
 
         const wv = document.createElement('webview');
         wv.setAttribute('allowpopups', 'true');
@@ -366,39 +421,59 @@
         tabs.push({ id, tabEl, wv });
 
         tabEl.onclick = (e) => {
-          if (!e.target.classList.contains('tab-close')) selectTab(id);
+          if (!e.target.classList.contains('safari-tab-close')) selectTab(id);
         };
-        tabEl.querySelector('.tab-close').onclick = (e) => {
+        tabEl.querySelector('.safari-tab-close').onclick = (e) => {
           e.stopPropagation();
           closeTab(id);
         };
 
         wv.addEventListener('page-title-updated', (e) => {
-          tabEl.querySelector('.tab-title').textContent = e.title;
-          addHistory(e.title, wv.getURL());
+          tabEl.querySelector('.safari-tab-title').textContent = e.title;
         });
 
         wv.addEventListener('did-navigate', (e) => {
           if (activeTabId === id) omnibox.value = e.url;
-          addHistory(wv.getTitle(), e.url);
         });
 
         wv.addEventListener('dom-ready', () => {
-          // Banner blocker + Auto YouTube Skip
-          wv.insertCSS('.adsbygoogle, [id^="google_ads_"], .ad-banner, ytd-ad-slot-renderer { display: none !important; }');
-          wv.executeJavaScript(`
-            setInterval(() => {
-              const skip = document.querySelector('.ytp-skip-ad-button, .ytp-ad-skip-button, .ytp-ad-skip-button-modern');
-              if (skip) skip.click();
-              const ad = document.querySelector('.ad-showing, .ad-interrupting');
-              const vid = document.querySelector('video');
-              if (ad && vid && !isNaN(vid.duration)) {
-                vid.muted = true;
-                vid.playbackRate = 16.0;
-                vid.currentTime = vid.duration - 0.1;
+          if (config.adblock) {
+            wv.insertCSS(`
+              .adsbygoogle, [id^="google_ads_"], .ad-banner, .advertisement,
+              ytd-ad-slot-renderer, ytd-banner-promo-renderer, #masthead-ad {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
               }
-            }, 250);
-          `);
+            `);
+
+            wv.executeJavaScript(`
+              if (!window.__ytSkipShield) {
+                window.__ytSkipShield = true;
+                setInterval(() => {
+                  const skipBtn = document.querySelector('.ytp-skip-ad-button, .ytp-ad-skip-button, .ytp-ad-skip-button-modern');
+                  if (skipBtn) skipBtn.click();
+                  
+                  const adShowing = document.querySelector('.ad-showing, .ad-interrupting');
+                  const video = document.querySelector('video');
+                  if (adShowing && video) {
+                    video.muted = true;
+                    video.playbackRate = 16.0;
+                    if (!isNaN(video.duration) && isFinite(video.duration)) {
+                      video.currentTime = video.duration - 0.1;
+                    }
+                  }
+                }, 150);
+              }
+            `);
+          }
+
+          // Inject all enabled custom extensions
+          extensions.forEach(ext => {
+            if (ext.enabled) {
+              wv.executeJavaScript(ext.code);
+            }
+          });
         });
 
         selectTab(id);
@@ -451,24 +526,54 @@
 
       omnibox.onkeydown = (e) => { if (e.key === 'Enter') navigate(); };
 
-      btnHistory.onclick = () => { renderHistory(); historyModal.style.display = 'flex'; };
-      btnCloseHistory.onclick = () => { historyModal.style.display = 'none'; };
-      btnClearHistory.onclick = () => { localStorage.removeItem('browser_history'); renderHistory(); };
-
+      // Settings Modal
       btnSettings.onclick = () => {
         cfgEngine.value = config.engine;
         cfgHome.value = config.home;
+        cfgAdblock.checked = config.adblock;
         settingsModal.style.display = 'flex';
       };
+
       btnSaveSettings.onclick = () => {
         config.engine = cfgEngine.value;
         config.home = cfgHome.value;
+        config.adblock = cfgAdblock.checked;
         localStorage.setItem('cfg_engine', config.engine);
         localStorage.setItem('cfg_home', config.home);
+        localStorage.setItem('cfg_adblock', config.adblock);
         settingsModal.style.display = 'none';
       };
 
-      // Start initial tab
+      btnClearStorage.onclick = async () => {
+        if (window.aleniumAPI && window.aleniumAPI.purgeCache) {
+          await window.aleniumAPI.purgeCache();
+        }
+        localStorage.clear();
+        alert('Cache and stored website data purged.');
+      };
+
+      // Extension Manager Modal
+      btnExtensions.onclick = () => {
+        renderExtensions();
+        extModal.style.display = 'flex';
+      };
+      btnCloseExt.onclick = () => { extModal.style.display = 'none'; };
+
+      btnAddExt.onclick = () => {
+        const name = extNameInput.value.trim();
+        const code = extCodeInput.value.trim();
+        if (!name || !code) return;
+
+        extensions.push({ id: 'ext_' + Date.now(), name, code, enabled: true });
+        localStorage.setItem('alenium_extensions', JSON.stringify(extensions));
+        extNameInput.value = '';
+        extCodeInput.value = '';
+        renderExtensions();
+
+        const wv = getActiveWV();
+        if (wv) wv.reload();
+      };
+
       createTab();
     });
   </script>
