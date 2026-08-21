@@ -13,10 +13,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Download Chromium App Icon
+        run: |
+          Invoke-WebRequest -Uri "https://raw.githubusercontent.com/alrra/browser-logos/main/src/chromium/chromium.ico" -OutFile "icon.ico"
       - run: npm install
       - run: npm run dist
       - name: Upload EXE
         uses: actions/upload-artifact@v4
         with:
-          name: Browser-Setup
+          name: Alenium-Browser-Setup
           path: dist/*.exe
