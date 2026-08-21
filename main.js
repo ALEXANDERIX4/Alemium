@@ -1,53 +1,28 @@
-const { app, BrowserWindow, session, ipcMain } = require('electron');
+const { app, BrowserWindow, session } = require('electron');
 const path = require('path');
 
 function createWindow() {
   const win = new BrowserWindow({
     title: 'Alenium',
-    width: 1320,
-    height: 840,
-    minWidth: 500,
-    minHeight: 400,
-    icon: path.join(__dirname, 'icon.ico'),
+    width: 1280,
+    height: 800,
+    minWidth: 450,
+    minHeight: 350,
+    autoHideMenuBar: true,
     backgroundColor: '#1f1f1f',
     webPreferences: {
       webviewTag: true,
-      nodeIntegration: true,
-      contextIsolation: false
+      nodeIntegration: false,
+      contextIsolation: true
     }
   });
 
-  const ses = session.defaultSession;
-  ses.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36');
+  win.removeMenu(); // Removes default "File Edit View" bar
 
-  // AdShield Network Filters
-  const adFilters = [
-    "*://*.doubleclick.net/*",
-    "*://*.googlesyndication.com/*",
-    "*://*.google-analytics.com/*",
-    "*://*.adnxs.com/*",
-    "*://*.ads.pubmatic.com/*",
-    "*://*.rubiconproject.com/*",
-    "*://*.criteo.com/*",
-    "*://*.taboola.com/*",
-    "*://*.outbrain.com/*",
-    "*://*.adroll.com/*",
-    "*://*.popads.net/*",
-    "*://*.adservice.google.*/*",
-    "*://*pagead2.googlesyndication.*/*"
-  ];
-
-  let adBlockActive = true;
-  ses.webRequest.onBeforeRequest({ urls: adFilters }, (details, callback) => {
-    callback({ cancel: adBlockActive });
-  });
-
-  ipcMain.on('set-adblock', (event, status) => { adBlockActive = status; });
-  ipcMain.on('clear-cache', async (event) => {
-    await ses.clearCache();
-    await ses.clearStorageData({ storages: ['cookies', 'localstorage', 'cache'] });
-    event.sender.send('cache-cleared');
-  });
+  // Modern Chrome User-Agent
+  session.defaultSession.setUserAgent(
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36'
+  );
 
   win.loadFile('index.html');
 }
