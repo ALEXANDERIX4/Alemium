@@ -9,180 +9,468 @@
       display: flex;
       flex-direction: column;
       height: 100vh;
-      background: #0f0f11;
-      color: #e4e4e7;
+      background: #1f1f1f;
+      color: #e3e3e3;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       overflow: hidden;
       user-select: none;
     }
 
-    .header {
+    /* Tab Bar */
+    .tab-strip {
       display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 14px;
-      background: #18181b;
-      border-bottom: 1px solid #27272a;
-      height: 44px;
+      align-items: flex-end;
+      height: 40px;
+      background: #181818;
+      padding: 0 8px;
+      gap: 4px;
     }
-    .nav-group { display: flex; align-items: center; gap: 4px; }
-    .btn-icon {
-      width: 30px; height: 30px; border-radius: 6px; border: none;
-      background: transparent; color: #a1a1aa; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; font-size: 0.95rem;
+    .app-icon {
+      width: 20px;
+      height: 20px;
+      margin-bottom: 8px;
+      margin-right: 6px;
     }
-    .btn-icon:hover { background: #27272a; color: #fafafa; }
-
-    .search-box {
-      flex: 1; max-width: 680px; margin: 0 auto; display: flex;
-      align-items: center; background: #0f0f11; border-radius: 8px;
-      padding: 0 12px; height: 30px; border: 1px solid #27272a;
-    }
-    .search-box:focus-within { border-color: #3b82f6; background: #09090b; }
-    .search-input {
-      width: 100%; background: transparent; border: none;
-      color: #fafafa; font-size: 0.85rem; outline: none;
-    }
-
-    .tabs-bar {
-      display: flex; align-items: center; background: #18181b;
-      padding: 0 10px 4px 10px; gap: 6px; overflow-x: auto;
-      border-bottom: 1px solid #27272a; height: 34px;
+    .tab-list {
+      display: flex;
+      gap: 4px;
+      align-items: flex-end;
+      overflow-x: auto;
+      height: 100%;
     }
     .tab {
-      display: flex; align-items: center; gap: 8px; padding: 4px 10px;
-      height: 26px; background: #27272a; color: #a1a1aa; border-radius: 6px;
-      font-size: 0.78rem; cursor: pointer; min-width: 120px; max-width: 180px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 12px;
+      height: 32px;
+      background: #282828;
+      color: #aaa;
+      border-radius: 8px 8px 0 0;
+      font-size: 0.8rem;
+      cursor: pointer;
+      min-width: 140px;
+      max-width: 200px;
     }
-    .tab.active { background: #3f3f46; color: #fafafa; font-weight: 500; }
-    .tab-title { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .tab.active {
+      background: #333333;
+      color: #fff;
+    }
+    .tab-title {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     .tab-close {
-      border: none; background: transparent; color: #71717a; font-size: 0.85rem;
-      cursor: pointer; width: 14px; height: 14px; display: flex;
-      align-items: center; justify-content: center;
+      border: none;
+      background: transparent;
+      color: #aaa;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .tab-close:hover { color: #fff; }
+    .tab-close:hover { background: #555; color: #fff; }
+    
+    .btn-new-tab {
+      background: transparent;
+      border: none;
+      color: #aaa;
+      font-size: 1.2rem;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2px;
+    }
+    .btn-new-tab:hover { background: #333; color: #fff; }
+
+    /* Navigation Bar */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      background: #282828;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    .nav-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      color: #c7c7c7;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+    }
+    .nav-btn:hover { background: #3c4043; color: #fff; }
+
+    /* Omnibox / Search */
+    .omnibox-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      background: #181818;
+      border-radius: 20px;
+      padding: 0 14px;
+      height: 34px;
+      border: 1px solid #3c4043;
+    }
+    .omnibox-wrapper:focus-within {
+      border-color: #8ab4f8;
+      background: #111;
+    }
+    .omnibox-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    /* Views Area */
+    #viewsContainer {
+      flex: 1;
+      position: relative;
+      background: #000;
+    }
+    webview {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+    }
+    webview.active {
+      display: flex;
+    }
+
+    /* Modals */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    .panel {
+      background: #282828;
+      border-radius: 12px;
+      width: 440px;
+      border: 1px solid #3c4043;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .settings-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+    select, input[type="text"] {
+      background: #181818;
+      border: 1px solid #3c4043;
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      outline: none;
+    }
+    .btn-action {
+      background: #8ab4f8;
+      border: none;
+      color: #1f1f1f;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .history-list {
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .history-item {
+      padding: 8px 10px;
+      background: #181818;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .history-item:hover { background: #111; }
+    .history-title { font-size: 0.85rem; font-weight: bold; }
+    .history-url { font-size: 0.75rem; color: #8ab4f8; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <div class="nav-group">
-      <button class="btn-icon" id="btnBack">←</button>
-      <button class="btn-icon" id="btnForward">→</button>
-      <button class="btn-icon" id="btnReload">⟳</button>
+  <!-- Tabs Header -->
+  <div class="tab-strip">
+    <svg class="app-icon" viewBox="0 0 48 48">
+      <circle cx="24" cy="24" r="21.5" fill="#1976D2"/>
+      <circle cx="24" cy="24" r="7.5" fill="#FFFFFF"/>
+      <circle cx="24" cy="24" r="6" fill="#1976D2"/>
+    </svg>
+    <div class="tab-list" id="tabList"></div>
+    <button class="btn-new-tab" id="btnNewTab">+</button>
+  </div>
+
+  <!-- Browser Controls -->
+  <div class="toolbar">
+    <button class="nav-btn" id="btnBack">←</button>
+    <button class="nav-btn" id="btnForward">→</button>
+    <button class="nav-btn" id="btnReload">⟳</button>
+    <button class="nav-btn" id="btnHome">🏠</button>
+
+    <div class="omnibox-wrapper">
+      <input type="text" class="omnibox-input" id="omnibox" placeholder="Search or type URL" />
     </div>
 
-    <div class="search-box">
-      <input type="text" class="search-input" id="omnibox" placeholder="Search or type a URL..." />
-    </div>
+    <button class="nav-btn" id="btnHistory">🕒</button>
+    <button class="nav-btn" id="btnSettings">⚙</button>
+  </div>
 
-    <div class="nav-group">
-      <button class="btn-icon" id="btnDark" title="Toggle Universal Dark Mode">🌙</button>
-      <button class="btn-icon" id="btnNewTab" title="New Tab">+</button>
+  <!-- Web Content Area -->
+  <div id="viewsContainer"></div>
+
+  <!-- Settings Modal -->
+  <div class="modal-backdrop" id="settingsModal">
+    <div class="panel">
+      <h3>Settings</h3>
+      <div class="settings-row">
+        <label>Search Provider:</label>
+        <select id="cfgEngine">
+          <option value="brave">Brave</option>
+          <option value="google">Google</option>
+          <option value="duckduckgo">DuckDuckGo</option>
+        </select>
+      </div>
+      <div class="settings-row">
+        <label>Home URL:</label>
+        <input type="text" id="cfgHome" style="width:200px;" />
+      </div>
+      <div style="display:flex; justify-content:flex-end;">
+        <button class="btn-action" id="btnSaveSettings">Save</button>
+      </div>
     </div>
   </div>
 
-  <div class="tabs-bar" id="tabList"></div>
+  <!-- History Modal -->
+  <div class="modal-backdrop" id="historyModal">
+    <div class="panel">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h3>History</h3>
+        <button class="btn-action" id="btnClearHistory" style="background:#ea4335; color:#fff; font-size:0.75rem; padding:4px 8px;">Clear</button>
+      </div>
+      <div class="history-list" id="historyListContainer"></div>
+      <div style="display:flex; justify-content:flex-end;">
+        <button class="btn-action" id="btnCloseHistory">Close</button>
+      </div>
+    </div>
+  </div>
 
   <script>
-    const { ipcRenderer } = require('electron');
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabList = document.getElementById('tabList');
+      const viewsContainer = document.getElementById('viewsContainer');
+      const omnibox = document.getElementById('omnibox');
+      
+      const btnNewTab = document.getElementById('btnNewTab');
+      const btnBack = document.getElementById('btnBack');
+      const btnForward = document.getElementById('btnForward');
+      const btnReload = document.getElementById('btnReload');
+      const btnHome = document.getElementById('btnHome');
+      
+      const btnHistory = document.getElementById('btnHistory');
+      const historyModal = document.getElementById('historyModal');
+      const historyListContainer = document.getElementById('historyListContainer');
+      const btnCloseHistory = document.getElementById('btnCloseHistory');
+      const btnClearHistory = document.getElementById('btnClearHistory');
 
-    const tabList = document.getElementById('tabList');
-    const omnibox = document.getElementById('omnibox');
-    const btnNewTab = document.getElementById('btnNewTab');
-    const btnBack = document.getElementById('btnBack');
-    const btnForward = document.getElementById('btnForward');
-    const btnReload = document.getElementById('btnReload');
-    const btnDark = document.getElementById('btnDark');
+      const btnSettings = document.getElementById('btnSettings');
+      const settingsModal = document.getElementById('settingsModal');
+      const btnSaveSettings = document.getElementById('btnSaveSettings');
+      const cfgEngine = document.getElementById('cfgEngine');
+      const cfgHome = document.getElementById('cfgHome');
 
-    let tabs = [];
-    let activeTabId = null;
-    let darkMode = true;
+      let tabs = [];
+      let activeTabId = null;
 
-    function createTab(url = 'https://search.brave.com') {
-      const id = 'tab_' + Date.now();
-
-      const tabEl = document.createElement('div');
-      tabEl.className = 'tab';
-      tabEl.innerHTML = `<span class="tab-title">New Tab</span><button class="tab-close">&times;</button>`;
-
-      tabList.appendChild(tabEl);
-      tabs.push({ id, tabEl });
-
-      tabEl.onclick = (e) => {
-        if (!e.target.classList.contains('tab-close')) selectTab(id);
+      let config = {
+        engine: localStorage.getItem('cfg_engine') || 'brave',
+        home: localStorage.getItem('cfg_home') || 'https://search.brave.com'
       };
-      tabEl.querySelector('.tab-close').onclick = (e) => {
-        e.stopPropagation();
-        closeTab(id);
+
+      const engines = {
+        brave: 'https://search.brave.com/search?q=',
+        google: 'https://www.google.com/search?q=',
+        duckduckgo: 'https://duckduckgo.com/?q='
       };
 
-      ipcRenderer.send('create-tab', { id, url });
-      selectTab(id);
-    }
-
-    function selectTab(id) {
-      activeTabId = id;
-      tabs.forEach(t => {
-        t.tabEl.classList.toggle('active', t.id === id);
-      });
-      ipcRenderer.send('switch-tab', id);
-    }
-
-    function closeTab(id) {
-      if (tabs.length === 1) return;
-      const idx = tabs.findIndex(t => t.id === id);
-      tabs[idx].tabEl.remove();
-      tabs.splice(idx, 1);
-      ipcRenderer.send('close-tab', id);
-
-      if (activeTabId === id) {
-        selectTab(tabs[Math.max(0, idx - 1)].id);
-      }
-    }
-
-    function navigate() {
-      let input = omnibox.value.trim();
-      if (!input) return;
-
-      const isUrl = input.includes('.') && !input.includes(' ') && !input.startsWith('http');
-      let finalUrl = input;
-      if (input.startsWith('http://') || input.startsWith('https://')) {
-        finalUrl = input;
-      } else if (isUrl) {
-        finalUrl = 'https://' + input;
-      } else {
-        finalUrl = 'https://search.brave.com/search?q=' + encodeURIComponent(input);
+      function addHistory(title, url) {
+        if (!url || url.startsWith('about:')) return;
+        let history = JSON.parse(localStorage.getItem('browser_history') || '[]');
+        if (history.length > 0 && history[0].url === url) return;
+        history.unshift({ title: title || url, url });
+        if (history.length > 50) history.pop();
+        localStorage.setItem('browser_history', JSON.stringify(history));
       }
 
-      ipcRenderer.send('navigate-active', finalUrl);
-    }
+      function renderHistory() {
+        const history = JSON.parse(localStorage.getItem('browser_history') || '[]');
+        historyListContainer.innerHTML = '';
+        if (history.length === 0) {
+          historyListContainer.innerHTML = '<div style="color:#777; padding:10px; text-align:center;">No history</div>';
+          return;
+        }
+        history.forEach(item => {
+          const row = document.createElement('div');
+          row.className = 'history-item';
+          row.innerHTML = `<div class="history-title">${item.title}</div><div class="history-url">${item.url}</div>`;
+          row.onclick = () => { createTab(item.url); historyModal.style.display = 'none'; };
+          historyListContainer.appendChild(row);
+        });
+      }
 
-    btnNewTab.onclick = () => createTab();
-    btnBack.onclick = () => ipcRenderer.send('nav-back');
-    btnForward.onclick = () => ipcRenderer.send('nav-forward');
-    btnReload.onclick = () => ipcRenderer.send('nav-reload');
-    omnibox.onkeydown = (e) => { if (e.key === 'Enter') navigate(); };
+      function createTab(targetUrl = config.home) {
+        const id = 'tab_' + Date.now();
 
-    btnDark.onclick = () => {
-      darkMode = !darkMode;
-      btnDark.style.opacity = darkMode ? '1' : '0.4';
-      ipcRenderer.send('toggle-dark-mode', darkMode);
-    };
+        const tabEl = document.createElement('div');
+        tabEl.className = 'tab';
+        tabEl.innerHTML = `<span class="tab-title">New Tab</span><button class="tab-close">&times;</button>`;
 
-    ipcRenderer.on('url-changed', (event, { id, url }) => {
-      if (activeTabId === id) omnibox.value = url;
+        const wv = document.createElement('webview');
+        wv.setAttribute('allowpopups', 'true');
+        wv.setAttribute('src', targetUrl);
+
+        viewsContainer.appendChild(wv);
+        tabList.appendChild(tabEl);
+        tabs.push({ id, tabEl, wv });
+
+        tabEl.onclick = (e) => {
+          if (!e.target.classList.contains('tab-close')) selectTab(id);
+        };
+        tabEl.querySelector('.tab-close').onclick = (e) => {
+          e.stopPropagation();
+          closeTab(id);
+        };
+
+        wv.addEventListener('page-title-updated', (e) => {
+          tabEl.querySelector('.tab-title').textContent = e.title;
+          addHistory(e.title, wv.getURL());
+        });
+
+        wv.addEventListener('did-navigate', (e) => {
+          if (activeTabId === id) omnibox.value = e.url;
+          addHistory(wv.getTitle(), e.url);
+        });
+
+        wv.addEventListener('dom-ready', () => {
+          // Banner blocker + Auto YouTube Skip
+          wv.insertCSS('.adsbygoogle, [id^="google_ads_"], .ad-banner, ytd-ad-slot-renderer { display: none !important; }');
+          wv.executeJavaScript(`
+            setInterval(() => {
+              const skip = document.querySelector('.ytp-skip-ad-button, .ytp-ad-skip-button, .ytp-ad-skip-button-modern');
+              if (skip) skip.click();
+              const ad = document.querySelector('.ad-showing, .ad-interrupting');
+              const vid = document.querySelector('video');
+              if (ad && vid && !isNaN(vid.duration)) {
+                vid.muted = true;
+                vid.playbackRate = 16.0;
+                vid.currentTime = vid.duration - 0.1;
+              }
+            }, 250);
+          `);
+        });
+
+        selectTab(id);
+      }
+
+      function selectTab(id) {
+        activeTabId = id;
+        tabs.forEach(t => {
+          const match = t.id === id;
+          t.tabEl.classList.toggle('active', match);
+          t.wv.classList.toggle('active', match);
+          if (match) omnibox.value = t.wv.getURL() || '';
+        });
+      }
+
+      function closeTab(id) {
+        if (tabs.length === 1) return;
+        const idx = tabs.findIndex(t => t.id === id);
+        tabs[idx].tabEl.remove();
+        tabs[idx].wv.remove();
+        tabs.splice(idx, 1);
+        if (activeTabId === id) selectTab(tabs[Math.max(0, idx - 1)].id);
+      }
+
+      function getActiveWV() {
+        const t = tabs.find(t => t.id === activeTabId);
+        return t ? t.wv : null;
+      }
+
+      function navigate() {
+        const input = omnibox.value.trim();
+        const wv = getActiveWV();
+        if (!input || !wv) return;
+
+        const isUrl = input.includes('.') && !input.includes(' ') && !input.startsWith('http');
+        if (input.startsWith('http://') || input.startsWith('https://')) {
+          wv.loadURL(input);
+        } else if (isUrl) {
+          wv.loadURL('https://' + input);
+        } else {
+          wv.loadURL(engines[config.engine] + encodeURIComponent(input));
+        }
+      }
+
+      btnNewTab.onclick = () => createTab();
+      btnBack.onclick = () => { const wv = getActiveWV(); if (wv && wv.canGoBack()) wv.goBack(); };
+      btnForward.onclick = () => { const wv = getActiveWV(); if (wv && wv.canGoForward()) wv.goForward(); };
+      btnReload.onclick = () => { const wv = getActiveWV(); if (wv) wv.reload(); };
+      btnHome.onclick = () => { const wv = getActiveWV(); if (wv) wv.loadURL(config.home); };
+
+      omnibox.onkeydown = (e) => { if (e.key === 'Enter') navigate(); };
+
+      btnHistory.onclick = () => { renderHistory(); historyModal.style.display = 'flex'; };
+      btnCloseHistory.onclick = () => { historyModal.style.display = 'none'; };
+      btnClearHistory.onclick = () => { localStorage.removeItem('browser_history'); renderHistory(); };
+
+      btnSettings.onclick = () => {
+        cfgEngine.value = config.engine;
+        cfgHome.value = config.home;
+        settingsModal.style.display = 'flex';
+      };
+      btnSaveSettings.onclick = () => {
+        config.engine = cfgEngine.value;
+        config.home = cfgHome.value;
+        localStorage.setItem('cfg_engine', config.engine);
+        localStorage.setItem('cfg_home', config.home);
+        settingsModal.style.display = 'none';
+      };
+
+      // Start initial tab
+      createTab();
     });
-
-    ipcRenderer.on('title-changed', (event, { id, title }) => {
-      const target = tabs.find(t => t.id === id);
-      if (target) {
-        target.tabEl.querySelector('.tab-title').textContent = title;
-      }
-    });
-
-    createTab();
   </script>
 </body>
 </html>
