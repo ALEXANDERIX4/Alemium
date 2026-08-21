@@ -16,7 +16,7 @@
       user-select: none;
     }
 
-    /* Chrome-Style Tab Strip */
+    /* Tab Strip */
     .chrome-tab-strip {
       display: flex;
       align-items: flex-end;
@@ -361,6 +361,9 @@
         duckduckgo: 'https://duckduckgo.com/?q='
       };
 
+      // Safely fake the User-Agent just for the web views
+      const chromeUA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36';
+
       function addHistory(title, url) {
         if (!url || url.startsWith('about:')) return;
         let history = JSON.parse(localStorage.getItem('browser_history') || '[]');
@@ -403,6 +406,7 @@
 
         const wv = document.createElement('webview');
         wv.setAttribute('allowpopups', 'true');
+        wv.setAttribute('useragent', chromeUA); // <--- This bypasses Spotify/Google blocks safely
         wv.setAttribute('src', targetUrl);
 
         viewsContainer.appendChild(wv);
@@ -459,7 +463,6 @@
           if (match) {
             omnibox.value = t.wv.getURL() || '';
           } else if (config.lowRam) {
-             // Freezes background webviews to save CPU/RAM
              t.wv.executeJavaScript(`console.log('Background tab paused to save RAM');`);
           }
         });
