@@ -16,7 +16,6 @@
       user-select: none;
     }
 
-    /* Minimalist Top Header */
     .header {
       display: flex;
       align-items: center;
@@ -24,175 +23,45 @@
       padding: 8px 14px;
       background: #18181b;
       border-bottom: 1px solid #27272a;
-      z-index: 10;
+      height: 44px;
     }
-    .nav-group {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
+    .nav-group { display: flex; align-items: center; gap: 4px; }
     .btn-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      border: none;
-      background: transparent;
-      color: #a1a1aa;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.95rem;
-      transition: background 0.15s, color 0.15s;
+      width: 30px; height: 30px; border-radius: 6px; border: none;
+      background: transparent; color: #a1a1aa; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; font-size: 0.95rem;
     }
-    .btn-icon:hover {
-      background: #27272a;
-      color: #fafafa;
-    }
+    .btn-icon:hover { background: #27272a; color: #fafafa; }
 
     .search-box {
-      flex: 1;
-      max-width: 680px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      background: #0f0f11;
-      border-radius: 8px;
-      padding: 0 12px;
-      height: 34px;
-      border: 1px solid #27272a;
+      flex: 1; max-width: 680px; margin: 0 auto; display: flex;
+      align-items: center; background: #0f0f11; border-radius: 8px;
+      padding: 0 12px; height: 30px; border: 1px solid #27272a;
     }
-    .search-box:focus-within {
-      border-color: #3b82f6;
-      background: #09090b;
-    }
+    .search-box:focus-within { border-color: #3b82f6; background: #09090b; }
     .search-input {
-      width: 100%;
-      background: transparent;
-      border: none;
-      color: #fafafa;
-      font-size: 0.85rem;
-      outline: none;
+      width: 100%; background: transparent; border: none;
+      color: #fafafa; font-size: 0.85rem; outline: none;
     }
 
-    /* Tab Bar */
     .tabs-bar {
-      display: flex;
-      align-items: center;
-      background: #18181b;
-      padding: 0 10px 6px 10px;
-      gap: 6px;
-      overflow-x: auto;
-      border-bottom: 1px solid #27272a;
+      display: flex; align-items: center; background: #18181b;
+      padding: 0 10px 4px 10px; gap: 6px; overflow-x: auto;
+      border-bottom: 1px solid #27272a; height: 34px;
     }
     .tab {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 5px 12px;
-      height: 28px;
-      background: #27272a;
-      color: #a1a1aa;
-      border-radius: 6px;
-      font-size: 0.78rem;
-      cursor: pointer;
-      min-width: 120px;
-      max-width: 200px;
+      display: flex; align-items: center; gap: 8px; padding: 4px 10px;
+      height: 26px; background: #27272a; color: #a1a1aa; border-radius: 6px;
+      font-size: 0.78rem; cursor: pointer; min-width: 120px; max-width: 180px;
     }
-    .tab.active {
-      background: #3f3f46;
-      color: #fafafa;
-      font-weight: 500;
-    }
-    .tab-title {
-      flex: 1;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
+    .tab.active { background: #3f3f46; color: #fafafa; font-weight: 500; }
+    .tab-title { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .tab-close {
-      border: none;
-      background: transparent;
-      color: #71717a;
-      font-size: 0.85rem;
-      cursor: pointer;
-      border-radius: 4px;
-      width: 16px;
-      height: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      border: none; background: transparent; color: #71717a; font-size: 0.85rem;
+      cursor: pointer; width: 14px; height: 14px; display: flex;
+      align-items: center; justify-content: center;
     }
-    .tab-close:hover { color: #fafafa; background: #52525b; }
-
-    #viewsContainer { flex: 1; position: relative; background: #ffffff; }
-    iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: none;
-      background: #ffffff;
-    }
-    iframe.active { display: block; }
-
-    /* Modals */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.65);
-      backdrop-filter: blur(8px);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-card {
-      background: #18181b;
-      border-radius: 12px;
-      width: 440px;
-      border: 1px solid #27272a;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .modal-card h3 { font-size: 1rem; color: #fafafa; }
-    .setting-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.85rem;
-    }
-    .setting-desc { color: #71717a; font-size: 0.75rem; margin-top: 2px; }
-    select, input[type="text"] {
-      background: #09090b;
-      border: 1px solid #27272a;
-      color: #fafafa;
-      padding: 6px 10px;
-      border-radius: 6px;
-      outline: none;
-      font-size: 0.85rem;
-    }
-    .btn-primary {
-      background: #2563eb;
-      border: none;
-      color: #fff;
-      padding: 6px 14px;
-      border-radius: 6px;
-      font-weight: 500;
-      cursor: pointer;
-    }
-    .btn-danger {
-      background: #dc2626;
-      border: none;
-      color: #fff;
-      padding: 6px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.8rem;
-    }
+    .tab-close:hover { color: #fff; }
   </style>
 </head>
 <body>
@@ -209,197 +78,111 @@
     </div>
 
     <div class="nav-group">
+      <button class="btn-icon" id="btnDark" title="Toggle Universal Dark Mode">🌙</button>
       <button class="btn-icon" id="btnNewTab" title="New Tab">+</button>
-      <button class="btn-icon" id="btnSettings" title="Settings">⚙</button>
     </div>
   </div>
 
   <div class="tabs-bar" id="tabList"></div>
-  <div id="viewsContainer"></div>
-
-  <!-- Settings Modal -->
-  <div class="modal-overlay" id="settingsModal">
-    <div class="modal-card">
-      <h3>Browser Preferences</h3>
-
-      <div class="setting-item">
-        <div>
-          <div>Search Engine</div>
-          <div class="setting-desc">Default provider for search queries</div>
-        </div>
-        <select id="cfgEngine">
-          <option value="brave">Brave</option>
-          <option value="google">Google</option>
-          <option value="duckduckgo">DuckDuckGo</option>
-        </select>
-      </div>
-
-      <div class="setting-item">
-        <div>
-          <div>Homepage</div>
-          <div class="setting-desc">URL opened on new tabs</div>
-        </div>
-        <input type="text" id="cfgHome" style="width:180px;" />
-      </div>
-
-      <div class="setting-item">
-        <div>
-          <div>Clear Local Storage</div>
-          <div class="setting-desc">Wipe all cached browser storage</div>
-        </div>
-        <button class="btn-danger" id="btnClearStorage">Clear Data</button>
-      </div>
-
-      <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:6px;">
-        <button class="btn-primary" id="btnSaveSettings">Save</button>
-      </div>
-    </div>
-  </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const tabList = document.getElementById('tabList');
-      const viewsContainer = document.getElementById('viewsContainer');
-      const omnibox = document.getElementById('omnibox');
+    const { ipcRenderer } = require('electron');
 
-      const btnNewTab = document.getElementById('btnNewTab');
-      const btnBack = document.getElementById('btnBack');
-      const btnForward = document.getElementById('btnForward');
-      const btnReload = document.getElementById('btnReload');
+    const tabList = document.getElementById('tabList');
+    const omnibox = document.getElementById('omnibox');
+    const btnNewTab = document.getElementById('btnNewTab');
+    const btnBack = document.getElementById('btnBack');
+    const btnForward = document.getElementById('btnForward');
+    const btnReload = document.getElementById('btnReload');
+    const btnDark = document.getElementById('btnDark');
 
-      const btnSettings = document.getElementById('btnSettings');
-      const settingsModal = document.getElementById('settingsModal');
-      const btnSaveSettings = document.getElementById('btnSaveSettings');
-      const btnClearStorage = document.getElementById('btnClearStorage');
-      const cfgEngine = document.getElementById('cfgEngine');
-      const cfgHome = document.getElementById('cfgHome');
+    let tabs = [];
+    let activeTabId = null;
+    let darkMode = true;
 
-      let tabs = [];
-      let activeTabId = null;
+    function createTab(url = 'https://search.brave.com') {
+      const id = 'tab_' + Date.now();
 
-      let config = {
-        engine: localStorage.getItem('cfg_engine') || 'brave',
-        home: localStorage.getItem('cfg_home') || 'https://search.brave.com'
+      const tabEl = document.createElement('div');
+      tabEl.className = 'tab';
+      tabEl.innerHTML = `<span class="tab-title">New Tab</span><button class="tab-close">&times;</button>`;
+
+      tabList.appendChild(tabEl);
+      tabs.push({ id, tabEl });
+
+      tabEl.onclick = (e) => {
+        if (!e.target.classList.contains('tab-close')) selectTab(id);
+      };
+      tabEl.querySelector('.tab-close').onclick = (e) => {
+        e.stopPropagation();
+        closeTab(id);
       };
 
-      const engines = {
-        brave: 'https://search.brave.com/search?q=',
-        google: 'https://www.google.com/search?q=',
-        duckduckgo: 'https://duckduckgo.com/?q='
-      };
+      ipcRenderer.send('create-tab', { id, url });
+      selectTab(id);
+    }
 
-      function createTab(targetUrl = config.home) {
-        const id = 'tab_' + Date.now();
-
-        const tabEl = document.createElement('div');
-        tabEl.className = 'tab';
-        tabEl.innerHTML = `<span class="tab-title">New Tab</span><button class="tab-close">&times;</button>`;
-
-        // Use iframe for 100% stable, zero-black-screen rendering
-        const frame = document.createElement('iframe');
-        frame.setAttribute('src', targetUrl);
-
-        viewsContainer.appendChild(frame);
-        tabList.appendChild(tabEl);
-        tabs.push({ id, tabEl, frame });
-
-        tabEl.onclick = (e) => {
-          if (!e.target.classList.contains('tab-close')) selectTab(id);
-        };
-        tabEl.querySelector('.tab-close').onclick = (e) => {
-          e.stopPropagation();
-          closeTab(id);
-        };
-
-        frame.addEventListener('load', () => {
-          try {
-            if (frame.contentDocument && frame.contentDocument.title) {
-              tabEl.querySelector('.tab-title').textContent = frame.contentDocument.title;
-            }
-          } catch(e) {}
-        });
-
-        selectTab(id);
-      }
-
-      function selectTab(id) {
-        activeTabId = id;
-        tabs.forEach(t => {
-          const match = t.id === id;
-          t.tabEl.classList.toggle('active', match);
-          t.frame.classList.toggle('active', match);
-          if (match) {
-            try {
-              omnibox.value = t.frame.contentWindow.location.href || t.frame.src;
-            } catch(e) {
-              omnibox.value = t.frame.src;
-            }
-          }
-        });
-      }
-
-      function closeTab(id) {
-        if (tabs.length === 1) return;
-        const idx = tabs.findIndex(t => t.id === id);
-        tabs[idx].tabEl.remove();
-        tabs[idx].frame.remove();
-        tabs.splice(idx, 1);
-        if (activeTabId === id) selectTab(tabs[Math.max(0, idx - 1)].id);
-      }
-
-      function getActiveFrame() {
-        const t = tabs.find(t => t.id === activeTabId);
-        return t ? t.frame : null;
-      }
-
-      function navigate() {
-        const input = omnibox.value.trim();
-        const frame = getActiveFrame();
-        if (!input || !frame) return;
-
-        const isUrl = input.includes('.') && !input.includes(' ') && !input.startsWith('http');
-        if (input.startsWith('http://') || input.startsWith('https://')) {
-          frame.src = input;
-        } else if (isUrl) {
-          frame.src = 'https://' + input;
-        } else {
-          frame.src = engines[config.engine] + encodeURIComponent(input);
-        }
-      }
-
-      btnNewTab.onclick = () => createTab();
-      btnBack.onclick = () => { const frame = getActiveFrame(); if (frame) frame.contentWindow.history.back(); };
-      btnForward.onclick = () => { const frame = getActiveFrame(); if (frame) frame.contentWindow.history.forward(); };
-      btnReload.onclick = () => { const frame = getActiveFrame(); if (frame) frame.src = frame.src; };
-
-      omnibox.onkeydown = (e) => { if (e.key === 'Enter') navigate(); };
-
-      btnSettings.onclick = () => {
-        cfgEngine.value = config.engine;
-        cfgHome.value = config.home;
-        settingsModal.style.display = 'flex';
-      };
-
-      btnSaveSettings.onclick = () => {
-        config.engine = cfgEngine.value;
-        config.home = cfgHome.value;
-        localStorage.setItem('cfg_engine', config.engine);
-        localStorage.setItem('cfg_home', config.home);
-        settingsModal.style.display = 'none';
-      };
-
-      btnClearStorage.onclick = () => {
-        localStorage.clear();
-        alert('Local storage data cleared.');
-      };
-
-      window.addEventListener('keydown', (e) => {
-        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 't') { e.preventDefault(); createTab(); }
-        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'w') { e.preventDefault(); if (activeTabId) closeTab(activeTabId); }
+    function selectTab(id) {
+      activeTabId = id;
+      tabs.forEach(t => {
+        t.tabEl.classList.toggle('active', t.id === id);
       });
+      ipcRenderer.send('switch-tab', id);
+    }
 
-      createTab();
+    function closeTab(id) {
+      if (tabs.length === 1) return;
+      const idx = tabs.findIndex(t => t.id === id);
+      tabs[idx].tabEl.remove();
+      tabs.splice(idx, 1);
+      ipcRenderer.send('close-tab', id);
+
+      if (activeTabId === id) {
+        selectTab(tabs[Math.max(0, idx - 1)].id);
+      }
+    }
+
+    function navigate() {
+      let input = omnibox.value.trim();
+      if (!input) return;
+
+      const isUrl = input.includes('.') && !input.includes(' ') && !input.startsWith('http');
+      let finalUrl = input;
+      if (input.startsWith('http://') || input.startsWith('https://')) {
+        finalUrl = input;
+      } else if (isUrl) {
+        finalUrl = 'https://' + input;
+      } else {
+        finalUrl = 'https://search.brave.com/search?q=' + encodeURIComponent(input);
+      }
+
+      ipcRenderer.send('navigate-active', finalUrl);
+    }
+
+    btnNewTab.onclick = () => createTab();
+    btnBack.onclick = () => ipcRenderer.send('nav-back');
+    btnForward.onclick = () => ipcRenderer.send('nav-forward');
+    btnReload.onclick = () => ipcRenderer.send('nav-reload');
+    omnibox.onkeydown = (e) => { if (e.key === 'Enter') navigate(); };
+
+    btnDark.onclick = () => {
+      darkMode = !darkMode;
+      btnDark.style.opacity = darkMode ? '1' : '0.4';
+      ipcRenderer.send('toggle-dark-mode', darkMode);
+    };
+
+    ipcRenderer.on('url-changed', (event, { id, url }) => {
+      if (activeTabId === id) omnibox.value = url;
     });
+
+    ipcRenderer.on('title-changed', (event, { id, title }) => {
+      const target = tabs.find(t => t.id === id);
+      if (target) {
+        target.tabEl.querySelector('.tab-title').textContent = title;
+      }
+    });
+
+    createTab();
   </script>
 </body>
 </html>
