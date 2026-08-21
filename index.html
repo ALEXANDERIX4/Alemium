@@ -125,9 +125,17 @@
     }
     .tab-close:hover { color: #fafafa; background: #52525b; }
 
-    #viewsContainer { flex: 1; position: relative; background: #09090b; }
-    webview { position: absolute; inset: 0; width: 100%; height: 100%; display: none; }
-    webview.active { display: flex; }
+    #viewsContainer { flex: 1; position: relative; background: #ffffff; }
+    iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: none;
+      background: #ffffff;
+    }
+    iframe.active { display: block; }
 
     /* Modals */
     .modal-overlay {
@@ -236,14 +244,6 @@
 
       <div class="setting-item">
         <div>
-          <div>AdShield & YouTube Auto-Skip</div>
-          <div class="setting-desc">Block video ads and trackers</div>
-        </div>
-        <input type="checkbox" id="cfgAdblock" style="transform:scale(1.2); cursor:pointer;" />
-      </div>
-
-      <div class="setting-item">
-        <div>
           <div>Clear Local Storage</div>
           <div class="setting-desc">Wipe all cached browser storage</div>
         </div>
@@ -273,15 +273,13 @@
       const btnClearStorage = document.getElementById('btnClearStorage');
       const cfgEngine = document.getElementById('cfgEngine');
       const cfgHome = document.getElementById('cfgHome');
-      const cfgAdblock = document.getElementById('cfgAdblock');
 
       let tabs = [];
       let activeTabId = null;
 
       let config = {
         engine: localStorage.getItem('cfg_engine') || 'brave',
-        home: localStorage.getItem('cfg_home') || 'https://search.brave.com',
-        adblock: localStorage.getItem('cfg_adblock') !== 'false'
+        home: localStorage.getItem('cfg_home') || 'https://search.brave.com'
       };
 
       const engines = {
@@ -297,14 +295,13 @@
         tabEl.className = 'tab';
         tabEl.innerHTML = `<span class="tab-title">New Tab</span><button class="tab-close">&times;</button>`;
 
-        const wv = document.createElement('webview');
-        wv.setAttribute('allowpopups', 'true');
-        wv.setAttribute('useragent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36');
-        wv.setAttribute('src', targetUrl);
+        // Use iframe for 100% stable, zero-black-screen rendering
+        const frame = document.createElement('iframe');
+        frame.setAttribute('src', targetUrl);
 
-        viewsContainer.appendChild(wv);
+        viewsContainer.appendChild(frame);
         tabList.appendChild(tabEl);
-        tabs.push({ id, tabEl, wv });
+        tabs.push({ id, tabEl, frame });
 
         tabEl.onclick = (e) => {
           if (!e.target.classList.contains('tab-close')) selectTab(id);
@@ -314,45 +311,12 @@
           closeTab(id);
         };
 
-        wv.addEventListener('page-title-updated', (e) => {
-          tabEl.querySelector('.tab-title').textContent = e.title;
-        });
-
-        wv.addEventListener('did-navigate', (e) => {
-          if (activeTabId === id) omnibox.value = e.url;
-        });
-
-        wv.addEventListener('dom-ready', () => {
-          if (config.adblock) {
-            wv.insertCSS(`
-              .adsbygoogle, [id^="google_ads_"], .ad-banner, .advertisement,
-              ytd-ad-slot-renderer, ytd-banner-promo-renderer, #masthead-ad {
-                display: none !important;
-                visibility: hidden !important;
-                height: 0 !important;
-              }
-            `);
-
-            wv.executeJavaScript(`
-              if (!window.__ytSkipShield) {
-                window.__ytSkipShield = true;
-                setInterval(() => {
-                  const skipBtn = document.querySelector('.ytp-skip-ad-button, .ytp-ad-skip-button, .ytp-ad-skip-button-modern');
-                  if (skipBtn) skipBtn.click();
-                  
-                  const adShowing = document.querySelector('.ad-showing, .ad-interrupting');
-                  const video = document.querySelector('video');
-                  if (adShowing && video) {
-                    video.muted = true;
-                    video.playbackRate = 16.0;
-                    if (!isNaN(video.duration) && isFinite(video.duration)) {
-                      video.currentTime = video.duration - 0.1;
-                    }
-                  }
-                }, 150);
-              }
-            `);
-          }
+        frame.addEventListener('load', () => {
+          try {
+            if (frame.contentDocument && frame.contentDocument.title) {
+              tabEl.querySelector('.tab-title').textContent = frame.contentDocument.title;
+            }
+          } catch(e) {}
         });
 
         selectTab(id);
@@ -363,8 +327,14 @@
         tabs.forEach(t => {
           const match = t.id === id;
           t.tabEl.classList.toggle('active', match);
-          t.wv.classList.toggle('active', match);
-          if (match) omnibox.value = t.wv.getURL() || '';
+          t.frame.classList.toggle('active', match);
+          if (match) {
+            try {
+              omnibox.value = t.frame.contentWindow.location.href || t.frame.src;
+            } catch(e) {
+              omnibox.value = t.frame.src;
+            }
+          }
         });
       }
 
@@ -372,52 +342,49 @@
         if (tabs.length === 1) return;
         const idx = tabs.findIndex(t => t.id === id);
         tabs[idx].tabEl.remove();
-        tabs[idx].wv.remove();
+        tabs[idx].frame.remove();
         tabs.splice(idx, 1);
         if (activeTabId === id) selectTab(tabs[Math.max(0, idx - 1)].id);
       }
 
-      function getActiveWV() {
+      function getActiveFrame() {
         const t = tabs.find(t => t.id === activeTabId);
-        return t ? t.wv : null;
+        return t ? t.frame : null;
       }
 
       function navigate() {
         const input = omnibox.value.trim();
-        const wv = getActiveWV();
-        if (!input || !wv) return;
+        const frame = getActiveFrame();
+        if (!input || !frame) return;
 
         const isUrl = input.includes('.') && !input.includes(' ') && !input.startsWith('http');
         if (input.startsWith('http://') || input.startsWith('https://')) {
-          wv.loadURL(input);
+          frame.src = input;
         } else if (isUrl) {
-          wv.loadURL('https://' + input);
+          frame.src = 'https://' + input;
         } else {
-          wv.loadURL(engines[config.engine] + encodeURIComponent(input));
+          frame.src = engines[config.engine] + encodeURIComponent(input);
         }
       }
 
       btnNewTab.onclick = () => createTab();
-      btnBack.onclick = () => { const wv = getActiveWV(); if (wv && wv.canGoBack()) wv.goBack(); };
-      btnForward.onclick = () => { const wv = getActiveWV(); if (wv && wv.canGoForward()) wv.goForward(); };
-      btnReload.onclick = () => { const wv = getActiveWV(); if (wv) wv.reload(); };
+      btnBack.onclick = () => { const frame = getActiveFrame(); if (frame) frame.contentWindow.history.back(); };
+      btnForward.onclick = () => { const frame = getActiveFrame(); if (frame) frame.contentWindow.history.forward(); };
+      btnReload.onclick = () => { const frame = getActiveFrame(); if (frame) frame.src = frame.src; };
 
       omnibox.onkeydown = (e) => { if (e.key === 'Enter') navigate(); };
 
       btnSettings.onclick = () => {
         cfgEngine.value = config.engine;
         cfgHome.value = config.home;
-        cfgAdblock.checked = config.adblock;
         settingsModal.style.display = 'flex';
       };
 
       btnSaveSettings.onclick = () => {
         config.engine = cfgEngine.value;
         config.home = cfgHome.value;
-        config.adblock = cfgAdblock.checked;
         localStorage.setItem('cfg_engine', config.engine);
         localStorage.setItem('cfg_home', config.home);
-        localStorage.setItem('cfg_adblock', config.adblock);
         settingsModal.style.display = 'none';
       };
 
