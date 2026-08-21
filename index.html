@@ -16,7 +16,7 @@
       user-select: none;
     }
 
-    /* Original Chrome Tab Strip */
+    /* Chrome Tab Strip */
     .chrome-tab-strip {
       display: flex;
       align-items: flex-end;
@@ -174,7 +174,6 @@
       display: flex;
       flex-direction: column;
       gap: 14px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
     .panel-header {
       display: flex;
@@ -254,7 +253,7 @@
       <input type="text" class="omnibox-input" id="omnibox" placeholder="Search with Alenium or enter URL" />
     </div>
 
-    <button class="nav-btn" id="btnDark" title="Force Universal Dark Mode">🌙</button>
+    <button class="nav-btn" id="btnDark" title="Force Dark Mode">🌙</button>
     <button class="nav-btn" id="btnHistory" title="History (Ctrl+H)">🕒</button>
     <button class="nav-btn" id="btnSettings" title="Settings">⚙</button>
   </div>
@@ -291,16 +290,8 @@
 
       <div class="settings-row">
         <div>
-          <div>Ultra-Low RAM Mode</div>
-          <div class="settings-desc">Unloads inactive tabs from memory</div>
-        </div>
-        <input type="checkbox" id="cfgLowRam" style="transform: scale(1.3); cursor:pointer;" />
-      </div>
-
-      <div class="settings-row">
-        <div>
           <div>AdShield & YouTube Auto-Skip</div>
-          <div class="settings-desc">Block web ads and fast-forward video ads</div>
+          <div class="settings-desc">Block web ads and auto-skip video ads</div>
         </div>
         <input type="checkbox" id="cfgAdblock" style="transform: scale(1.3); cursor:pointer;" />
       </div>
@@ -308,7 +299,7 @@
       <div class="settings-row">
         <div>
           <div>Purge Storage</div>
-          <div class="settings-desc">Wipe all local web storage & caches</div>
+          <div class="settings-desc">Wipe all local browser storage</div>
         </div>
         <button class="btn-action btn-danger" id="btnClearStorage">Clear Data</button>
       </div>
@@ -360,7 +351,6 @@
       const btnClearStorage = document.getElementById('btnClearStorage');
       const cfgEngine = document.getElementById('cfgEngine');
       const cfgHome = document.getElementById('cfgHome');
-      const cfgLowRam = document.getElementById('cfgLowRam');
       const cfgAdblock = document.getElementById('cfgAdblock');
 
       let tabs = [];
@@ -369,7 +359,6 @@
       let config = {
         engine: localStorage.getItem('cfg_engine') || 'brave',
         home: localStorage.getItem('cfg_home') || 'https://search.brave.com',
-        lowRam: localStorage.getItem('cfg_lowram') !== 'false',
         adblock: localStorage.getItem('cfg_adblock') !== 'false',
         darkmode: localStorage.getItem('cfg_darkmode') === 'true'
       };
@@ -454,14 +443,14 @@
             wv.insertCSS('.adsbygoogle, [id^="google_ads_"], .ad-banner, ytd-ad-slot-renderer { display: none !important; }');
             wv.executeJavaScript(`
               setInterval(() => {
-                const skip = document.querySelector('.ytp-skip-ad-button, .ytp-ad-skip-button, .ytp-ad-skip-button-modern');
-                if (skip) skip.click();
-                const ad = document.querySelector('.ad-showing, .ad-interrupting');
-                const vid = document.querySelector('video');
-                if (ad && vid && !isNaN(vid.duration)) {
-                  vid.muted = true;
-                  vid.playbackRate = 16.0;
-                  vid.currentTime = vid.duration - 0.1;
+                const skipBtn = document.querySelector('.ytp-skip-ad-button, .ytp-ad-skip-button, .ytp-ad-skip-button-modern');
+                if (skipBtn) skipBtn.click();
+                const adShowing = document.querySelector('.ad-showing, .ad-interrupting');
+                const video = document.querySelector('video');
+                if (adShowing && video && !isNaN(video.duration)) {
+                  video.muted = true;
+                  video.playbackRate = 16.0;
+                  video.currentTime = video.duration - 0.1;
                 }
               }, 250);
             `);
@@ -478,12 +467,7 @@
           const match = t.id === id;
           t.tabEl.classList.toggle('active', match);
           t.wv.classList.toggle('active', match);
-          if (match) {
-            omnibox.value = t.wv.getURL() || '';
-          } else if (config.lowRam && tabs.length > 5) {
-            // RAM Saver: Drop memory from stale tabs
-            t.wv.stop();
-          }
+          if (match) omnibox.value = t.wv.getURL() || '';
         });
       }
 
@@ -539,7 +523,6 @@
       btnSettings.onclick = () => {
         cfgEngine.value = config.engine;
         cfgHome.value = config.home;
-        cfgLowRam.checked = config.lowRam;
         cfgAdblock.checked = config.adblock;
         settingsModal.style.display = 'flex';
       };
@@ -547,18 +530,16 @@
       btnSaveSettings.onclick = () => {
         config.engine = cfgEngine.value;
         config.home = cfgHome.value;
-        config.lowRam = cfgLowRam.checked;
         config.adblock = cfgAdblock.checked;
         localStorage.setItem('cfg_engine', config.engine);
         localStorage.setItem('cfg_home', config.home);
-        localStorage.setItem('cfg_lowram', config.lowRam);
         localStorage.setItem('cfg_adblock', config.adblock);
         settingsModal.style.display = 'none';
       };
 
       btnClearStorage.onclick = () => {
         localStorage.clear();
-        alert('All storage cleared.');
+        alert('Storage cleared.');
       };
 
       window.addEventListener('keydown', (e) => {
