@@ -9,157 +9,158 @@
       display: flex;
       flex-direction: column;
       height: 100vh;
-      background: #1e1e1e;
-      color: #e5e5e7;
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+      background: #0f0f11;
+      color: #e4e4e7;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       overflow: hidden;
       user-select: none;
     }
 
-    /* Safari Toolbar */
-    .safari-navbar {
+    /* Minimalist Unified Header */
+    .header {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 8px 14px;
-      background: #252526;
-      border-bottom: 1px solid #333336;
+      gap: 12px;
+      padding: 10px 16px;
+      background: #18181b;
+      border-bottom: 1px solid #27272a;
       z-index: 10;
     }
-    .traffic-lights {
-      display: flex;
-      gap: 6px;
-      margin-right: 4px;
-    }
-    .light { width: 11px; height: 11px; border-radius: 50%; }
-    .light-red { background: #ff5f56; }
-    .light-yellow { background: #ffbd2e; }
-    .light-green { background: #27c93f; }
 
-    .nav-controls { display: flex; gap: 4px; }
-    .safari-btn {
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
+    .nav-group {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
       border: none;
       background: transparent;
-      color: #a1a1a6;
+      color: #a1a1aa;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 0.95rem;
-      transition: background 0.15s, color 0.15s;
+      transition: all 0.15s ease;
     }
-    .safari-btn:hover { background: #3a3a3c; color: #fff; }
+    .btn-icon:hover {
+      background: #27272a;
+      color: #fafafa;
+    }
 
-    .safari-search-wrapper {
+    /* Minimal Search Bar */
+    .search-box {
       flex: 1;
-      max-width: 620px;
+      max-width: 680px;
       margin: 0 auto;
       display: flex;
       align-items: center;
-      background: #19191a;
-      border-radius: 8px;
-      padding: 0 10px;
-      height: 30px;
-      border: 1px solid #38383a;
-      gap: 8px;
+      background: #0f0f11;
+      border-radius: 10px;
+      padding: 0 12px;
+      height: 36px;
+      border: 1px solid #27272a;
+      transition: all 0.2s ease;
     }
-    .safari-search-wrapper:focus-within {
-      border-color: #007aff;
-      background: #141415;
+    .search-box:focus-within {
+      border-color: #3b82f6;
+      background: #09090b;
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
     }
-    .search-icon { font-size: 0.75rem; color: #6e6e73; }
-    .safari-input {
+    .search-input {
       width: 100%;
       background: transparent;
       border: none;
-      color: #fff;
+      color: #fafafa;
       font-size: 0.85rem;
-      text-align: center;
       outline: none;
     }
-    .safari-input:focus { text-align: left; }
 
-    /* Safari Tab Strip */
-    .safari-tabstrip {
+    /* Sleek Tab Strip */
+    .tabs-bar {
       display: flex;
-      background: #1c1c1e;
-      border-bottom: 1px solid #2c2c2e;
-      padding: 4px 10px 0 10px;
-      gap: 4px;
+      align-items: center;
+      background: #18181b;
+      padding: 0 12px 6px 12px;
+      gap: 6px;
       overflow-x: auto;
+      border-bottom: 1px solid #27272a;
     }
-    .safari-tab {
+    .tab {
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 0 14px;
-      height: 28px;
-      background: #252526;
-      color: #8e8e93;
-      border-radius: 6px 6px 0 0;
-      font-size: 0.75rem;
+      padding: 6px 12px;
+      height: 30px;
+      background: #27272a;
+      color: #a1a1aa;
+      border-radius: 7px;
+      font-size: 0.78rem;
       cursor: pointer;
-      min-width: 130px;
+      min-width: 120px;
       max-width: 200px;
+      transition: all 0.15s ease;
     }
-    .safari-tab.active {
-      background: #2c2c2e;
-      color: #fff;
+    .tab.active {
+      background: #3f3f46;
+      color: #fafafa;
+      font-weight: 500;
     }
-    .safari-tab-title {
+    .tab-title {
       flex: 1;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .safari-tab-close {
+    .tab-close {
       border: none;
       background: transparent;
-      color: #8e8e93;
-      font-size: 0.85rem;
+      color: #71717a;
+      font-size: 0.9rem;
       cursor: pointer;
-      border-radius: 50%;
-      width: 14px;
-      height: 14px;
+      border-radius: 4px;
+      width: 16px;
+      height: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .safari-tab-close:hover { color: #fff; background: #3a3a3c; }
+    .tab-close:hover { color: #fafafa; background: #52525b; }
 
-    #viewsContainer { flex: 1; position: relative; background: #121212; }
+    #viewsContainer { flex: 1; position: relative; background: #09090b; }
     webview { position: absolute; inset: 0; width: 100%; height: 100%; display: none; }
     webview.active { display: flex; }
 
-    /* Modal Sheets */
-    .safari-sheet {
+    /* Floating Modal Sheets */
+    .modal-overlay {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.55);
-      backdrop-filter: blur(8px);
-      z-index: 999;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
       justify-content: center;
       align-items: center;
     }
-    .sheet-card {
-      background: #252526;
-      border-radius: 12px;
-      width: 500px;
-      border: 1px solid #38383a;
+    .modal-card {
+      background: #18181b;
+      border-radius: 14px;
+      width: 460px;
+      border: 1px solid #27272a;
       padding: 22px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
     }
-    .sheet-card h3 {
+    .modal-card h3 {
       font-size: 1.05rem;
       font-weight: 600;
-      border-bottom: 1px solid #333336;
-      padding-bottom: 10px;
+      color: #fafafa;
     }
     .setting-item {
       display: flex;
@@ -167,37 +168,40 @@
       align-items: center;
       font-size: 0.85rem;
     }
-    .setting-desc { color: #8e8e93; font-size: 0.75rem; margin-top: 2px; }
+    .setting-desc { color: #71717a; font-size: 0.75rem; margin-top: 2px; }
     select, input[type="text"], textarea {
-      background: #19191a;
-      border: 1px solid #3a3a3c;
-      color: #fff;
-      padding: 6px 10px;
-      border-radius: 6px;
+      background: #09090b;
+      border: 1px solid #27272a;
+      color: #fafafa;
+      padding: 7px 10px;
+      border-radius: 8px;
       outline: none;
       font-size: 0.85rem;
     }
-    .btn-safari-primary {
-      background: #007aff;
+    .btn-primary {
+      background: #2563eb;
       border: none;
       color: #fff;
-      padding: 6px 14px;
-      border-radius: 6px;
+      padding: 7px 14px;
+      border-radius: 8px;
       font-weight: 500;
       cursor: pointer;
+      transition: background 0.15s;
     }
-    .btn-safari-danger {
-      background: #ff453a;
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-danger {
+      background: #dc2626;
       border: none;
       color: #fff;
       padding: 6px 12px;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
       font-size: 0.8rem;
     }
+    .btn-danger:hover { background: #b91c1c; }
 
     .ext-list {
-      max-height: 220px;
+      max-height: 200px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -208,108 +212,101 @@
       justify-content: space-between;
       align-items: center;
       padding: 8px 10px;
-      background: #1c1c1e;
-      border-radius: 6px;
+      background: #09090b;
+      border-radius: 8px;
       font-size: 0.85rem;
     }
   </style>
 </head>
 <body>
 
-  <div class="safari-navbar">
-    <div class="traffic-lights">
-      <div class="light light-red"></div>
-      <div class="light light-yellow"></div>
-      <div class="light light-green"></div>
+  <!-- Minimal Top Header -->
+  <div class="header">
+    <div class="nav-group">
+      <button class="btn-icon" id="btnBack">←</button>
+      <button class="btn-icon" id="btnForward">→</button>
+      <button class="btn-icon" id="btnReload">⟳</button>
     </div>
 
-    <div class="nav-controls">
-      <button class="safari-btn" id="btnBack">‹</button>
-      <button class="safari-btn" id="btnForward">›</button>
-      <button class="safari-btn" id="btnReload">⟳</button>
-      <button class="safari-btn" id="btnHome">🏠</button>
+    <div class="search-box">
+      <input type="text" class="search-input" id="omnibox" placeholder="Search or type a URL..." />
     </div>
 
-    <div class="safari-search-wrapper">
-      <span class="search-icon">🔒</span>
-      <input type="text" class="safari-input" id="omnibox" placeholder="Search or enter website name" />
-    </div>
-
-    <div class="nav-controls">
-      <button class="safari-btn" id="btnExtensions" title="Extensions">🧩</button>
-      <button class="safari-btn" id="btnNewTab" title="New Tab">+</button>
-      <button class="safari-btn" id="btnSettings" title="Settings">⚙</button>
+    <div class="nav-group">
+      <button class="btn-icon" id="btnNewTab" title="New Tab">+</button>
+      <button class="btn-icon" id="btnExtensions" title="Extensions">🧩</button>
+      <button class="btn-icon" id="btnSettings" title="Settings">⚙</button>
     </div>
   </div>
 
-  <div class="safari-tabstrip" id="tabList"></div>
+  <!-- Tabs Bar -->
+  <div class="tabs-bar" id="tabList"></div>
+
+  <!-- Content -->
   <div id="viewsContainer"></div>
 
   <!-- Extensions Modal -->
-  <div class="safari-sheet" id="extModal">
-    <div class="sheet-card">
-      <h3>Installed Extensions</h3>
+  <div class="modal-overlay" id="extModal">
+    <div class="modal-card">
+      <h3>Extensions Manager</h3>
+      <div class="ext-list" id="extListContainer"></div>
 
-      <div class="ext-list" id="extListContainer">
-        <!-- Dynamic Extension Items -->
-      </div>
-
-      <div style="border-top: 1px solid #333; padding-top: 10px;">
-        <div style="font-size: 0.85rem; margin-bottom: 6px; font-weight: 600;">Install Custom JavaScript Extension</div>
-        <input type="text" id="extNameInput" placeholder="Extension Name (e.g. Force Dark Mode)" style="width: 100%; margin-bottom: 6px;" />
-        <textarea id="extCodeInput" placeholder="document.body.style.filter = 'invert(1) hue-rotate(180deg)';" style="width: 100%; height: 60px; font-family: monospace; font-size: 0.75rem;"></textarea>
+      <div style="border-top: 1px solid #27272a; padding-top: 12px;">
+        <div style="font-size: 0.8rem; font-weight: 500; margin-bottom: 6px;">Add Custom Script Extension</div>
+        <input type="text" id="extNameInput" placeholder="Extension Name" style="width: 100%; margin-bottom: 6px;" />
+        <textarea id="extCodeInput" placeholder="document.body.style.filter = 'invert(1)';" style="width: 100%; height: 50px; font-family: monospace; font-size: 0.75rem;"></textarea>
       </div>
 
       <div style="display:flex; justify-content:space-between; align-items:center;">
-        <button class="btn-safari-primary" id="btnAddExt">+ Add Script</button>
-        <button class="btn-safari-primary" id="btnCloseExt">Done</button>
+        <button class="btn-primary" id="btnAddExt">+ Add Script</button>
+        <button class="btn-primary" id="btnCloseExt">Done</button>
       </div>
     </div>
   </div>
 
   <!-- Settings Modal -->
-  <div class="safari-sheet" id="settingsModal">
-    <div class="sheet-card">
-      <h3>Safari Preferences</h3>
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal-card">
+      <h3>Settings</h3>
 
       <div class="setting-item">
         <div>
           <div>Search Engine</div>
-          <div class="setting-desc">Default provider for search queries</div>
+          <div class="setting-desc">Default provider for omnibox queries</div>
         </div>
         <select id="cfgEngine">
-          <option value="brave">Brave</option>
-          <option value="duckduckgo">DuckDuckGo</option>
+          <option value="brave">Brave Search</option>
           <option value="google">Google</option>
+          <option value="duckduckgo">DuckDuckGo</option>
         </select>
       </div>
 
       <div class="setting-item">
         <div>
           <div>Homepage</div>
-          <div class="setting-desc">Default start URL</div>
+          <div class="setting-desc">URL opened on new tabs</div>
         </div>
-        <input type="text" id="cfgHome" style="width:190px;" />
+        <input type="text" id="cfgHome" style="width:180px;" />
       </div>
 
       <div class="setting-item">
         <div>
-          <div>Anti-Tracker & YouTube Skip</div>
-          <div class="setting-desc">Block ads & telemetry automatically</div>
+          <div>AdShield & YouTube Auto-Skip</div>
+          <div class="setting-desc">Block video ads & trackers</div>
         </div>
         <input type="checkbox" id="cfgAdblock" style="transform:scale(1.2); cursor:pointer;" />
       </div>
 
       <div class="setting-item">
         <div>
-          <div>Purge Cache & Cookies</div>
-          <div class="setting-desc">Deep wipe browsing memory</div>
+          <div>Browsing Cache & Storage</div>
+          <div class="setting-desc">Wipe all disk cache and site cookies</div>
         </div>
-        <button class="btn-safari-danger" id="btnClearStorage">Purge Cache</button>
+        <button class="btn-danger" id="btnClearStorage">Purge Cache</button>
       </div>
 
-      <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:8px;">
-        <button class="btn-safari-primary" id="btnSaveSettings">Done</button>
+      <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:6px;">
+        <button class="btn-primary" id="btnSaveSettings">Done</button>
       </div>
     </div>
   </div>
@@ -324,7 +321,6 @@
       const btnBack = document.getElementById('btnBack');
       const btnForward = document.getElementById('btnForward');
       const btnReload = document.getElementById('btnReload');
-      const btnHome = document.getElementById('btnHome');
 
       const btnSettings = document.getElementById('btnSettings');
       const settingsModal = document.getElementById('settingsModal');
@@ -334,7 +330,6 @@
       const cfgHome = document.getElementById('cfgHome');
       const cfgAdblock = document.getElementById('cfgAdblock');
 
-      // Extensions Controls
       const btnExtensions = document.getElementById('btnExtensions');
       const extModal = document.getElementById('extModal');
       const btnCloseExt = document.getElementById('btnCloseExt');
@@ -352,18 +347,15 @@
         adblock: localStorage.getItem('cfg_adblock') !== 'false'
       };
 
-      // Built-in starter extensions
       let defaultExtensions = [
-        { id: 'ext_dark', name: 'Universal Dark Mode', code: 'document.documentElement.style.filter = "invert(0.9) hue-rotate(180deg)";', enabled: false },
-        { id: 'ext_pip', name: 'Force Video Picture-in-Picture', code: 'const v = document.querySelector("video"); if(v) v.requestPictureInPicture();', enabled: false }
+        { id: 'ext_dark', name: 'Universal Dark Mode', code: 'document.documentElement.style.filter = "invert(0.9) hue-rotate(180deg)";', enabled: false }
       ];
-
       let extensions = JSON.parse(localStorage.getItem('alenium_extensions')) || defaultExtensions;
 
       const engines = {
         brave: 'https://search.brave.com/search?q=',
-        duckduckgo: 'https://duckduckgo.com/?q=',
-        google: 'https://www.google.com/search?q='
+        google: 'https://www.google.com/search?q=',
+        duckduckgo: 'https://duckduckgo.com/?q='
       };
 
       function renderExtensions() {
@@ -372,18 +364,15 @@
           const row = document.createElement('div');
           row.className = 'ext-item';
           row.innerHTML = `
-            <div>
-              <div style="font-weight:600;">${ext.name}</div>
-            </div>
+            <div>${ext.name}</div>
             <div style="display:flex; gap:8px; align-items:center;">
               <input type="checkbox" ${ext.enabled ? 'checked' : ''} data-idx="${idx}" class="ext-toggle" style="transform:scale(1.2); cursor:pointer;">
-              <button class="btn-safari-danger" data-idx="${idx}" style="padding:2px 6px; font-size:0.75rem;">✕</button>
+              <button class="btn-danger" data-idx="${idx}" style="padding:2px 6px; font-size:0.75rem;">✕</button>
             </div>
           `;
           extListContainer.appendChild(row);
         });
 
-        // Toggle Extension
         document.querySelectorAll('.ext-toggle').forEach(el => {
           el.onchange = (e) => {
             const idx = e.target.getAttribute('data-idx');
@@ -394,8 +383,7 @@
           };
         });
 
-        // Delete Extension
-        extListContainer.querySelectorAll('.btn-safari-danger').forEach(el => {
+        extListContainer.querySelectorAll('.btn-danger').forEach(el => {
           el.onclick = (e) => {
             const idx = e.target.getAttribute('data-idx');
             extensions.splice(idx, 1);
@@ -409,11 +397,12 @@
         const id = 'tab_' + Date.now();
 
         const tabEl = document.createElement('div');
-        tabEl.className = 'safari-tab';
-        tabEl.innerHTML = `<span class="safari-tab-title">New Tab</span><button class="safari-tab-close">&times;</button>`;
+        tabEl.className = 'tab';
+        tabEl.innerHTML = `<span class="tab-title">New Tab</span><button class="tab-close">&times;</button>`;
 
         const wv = document.createElement('webview');
         wv.setAttribute('allowpopups', 'true');
+        wv.setAttribute('useragent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36');
         wv.setAttribute('src', targetUrl);
 
         viewsContainer.appendChild(wv);
@@ -421,15 +410,15 @@
         tabs.push({ id, tabEl, wv });
 
         tabEl.onclick = (e) => {
-          if (!e.target.classList.contains('safari-tab-close')) selectTab(id);
+          if (!e.target.classList.contains('tab-close')) selectTab(id);
         };
-        tabEl.querySelector('.safari-tab-close').onclick = (e) => {
+        tabEl.querySelector('.tab-close').onclick = (e) => {
           e.stopPropagation();
           closeTab(id);
         };
 
         wv.addEventListener('page-title-updated', (e) => {
-          tabEl.querySelector('.safari-tab-title').textContent = e.title;
+          tabEl.querySelector('.tab-title').textContent = e.title;
         });
 
         wv.addEventListener('did-navigate', (e) => {
@@ -468,11 +457,8 @@
             `);
           }
 
-          // Inject all enabled custom extensions
           extensions.forEach(ext => {
-            if (ext.enabled) {
-              wv.executeJavaScript(ext.code);
-            }
+            if (ext.enabled) wv.executeJavaScript(ext.code);
           });
         });
 
@@ -522,11 +508,9 @@
       btnBack.onclick = () => { const wv = getActiveWV(); if (wv && wv.canGoBack()) wv.goBack(); };
       btnForward.onclick = () => { const wv = getActiveWV(); if (wv && wv.canGoForward()) wv.goForward(); };
       btnReload.onclick = () => { const wv = getActiveWV(); if (wv) wv.reload(); };
-      btnHome.onclick = () => { const wv = getActiveWV(); if (wv) wv.loadURL(config.home); };
 
       omnibox.onkeydown = (e) => { if (e.key === 'Enter') navigate(); };
 
-      // Settings Modal
       btnSettings.onclick = () => {
         cfgEngine.value = config.engine;
         cfgHome.value = config.home;
@@ -549,10 +533,9 @@
           await window.aleniumAPI.purgeCache();
         }
         localStorage.clear();
-        alert('Cache and stored website data purged.');
+        alert('Cache and browsing storage cleared.');
       };
 
-      // Extension Manager Modal
       btnExtensions.onclick = () => {
         renderExtensions();
         extModal.style.display = 'flex';
@@ -573,6 +556,11 @@
         const wv = getActiveWV();
         if (wv) wv.reload();
       };
+
+      window.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 't') { e.preventDefault(); createTab(); }
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'w') { e.preventDefault(); if (activeTabId) closeTab(activeTabId); }
+      });
 
       createTab();
     });
